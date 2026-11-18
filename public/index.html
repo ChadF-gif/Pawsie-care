@@ -99,6 +99,12 @@ header { display: flex; flex-direction: column; gap: 6px; }
 .dose .note { color: var(--muted); font-size: 14px; }
 .givebtn { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink); font: 700 15px var(--body); cursor: pointer; align-self: flex-start; margin-top: 4px; }
 .givebtn[aria-pressed="true"] { background: transparent; color: var(--accent); }
+.pair { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+.pair .givebtn { flex: 1 1 120px; margin: 0; align-self: stretch; }
+.pair .givebtn.yes[aria-pressed="true"] { background: var(--c3); border-color: var(--c3); color: #fff; }
+.pair .givebtn.no { border-color: var(--danger); color: var(--danger); background: transparent; }
+.pair .givebtn.no[aria-pressed="true"] { background: var(--danger); color: #fff; }
+.pair .givebtn.yes:not([aria-pressed="true"]) { background: transparent; color: var(--accent); }
 .givebtn:disabled { opacity: .4; cursor: not-allowed; }
 .every { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; margin: 0; }
 .every dt { font-weight: 700; }
@@ -519,6 +525,23 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(function () {});
   fetch("/api/config").then(function (r) { return r.json(); }).then(function (j) { cfg = j; }, function () {});
   var qT = null;
+  function giveDose(id) {
+    if (S.given[id]) delete S.given[id];
+    else { S.given[id] = Date.now(); if (S.skipped[id]) { delete S.skipped[id]; op({ t: "skip", id: id, ts: null }); } }
+    save(); op({ t: "given", id: id, ts: S.given[id] || null }); render();
+  }
+  function notGiven(id) {
+    if (S.skipped[id]) delete S.skipped[id];
+    else { S.skipped[id] = Date.now(); if (S.given[id]) { delete S.given[id]; op({ t: "given", id: id, ts: null }); } }
+    save(); op({ t: "skip", id: id, ts: S.skipped[id] || null }); render();
+  }
+  function doseButtons(id) {
+    var g = S.given[id], n = S.skipped[id];
+    return el("div", { class: "pair noprint" }, [
+      el("button", { class: "givebtn yes", type: "button", "aria-pressed": g ? "true" : "false", text: g ? "\u2713 Given " + fmtTime(new Date(g)) : "Given", onclick: function () { giveDose(id); } }),
+      el("button", { class: "givebtn no", type: "button", "aria-pressed": n ? "true" : "false", text: n ? "\u2717 Not given" : "Not given", onclick: function () { notGiven(id); } })
+    ]);
+  }
   function startEditor(m) {
     var inp = el("input", { type: "datetime-local", value: m.first, style: "min-height:44px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:var(--bg);color:var(--ink);font:500 16px var(--body);width:100%" });
     return el("details", { class: "noprint" }, [el("summary", { style: "font:600 14px var(--body);color:var(--accent);cursor:pointer;min-height:36px;display:flex;align-items:center", text: "Change start time" }),
@@ -562,7 +585,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       box.appendChild(el("div", { class: "what" }, [nxt.med.name + " ", nxt.med.purpose ? el("span", { style: "color:var(--c)", text: "(" + nxt.med.purpose.toLowerCase() + ")" }) : null]));
       box.appendChild(el("div", { class: "how", style: "color:var(--ink);font-weight:600", text: nxt.med.dose }));
       box.appendChild(el("div", { class: "how", text: "Scheduled " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + (nxt.med.food ? ". Give with food." : ".") }));
-      box.appendChild(el("button", { type: "button", text: "Mark as given", onclick: function () { toggle(nxt.id); } }));
+      box.appendChild(doseButtons(nxt.id));
     }
     paintNext(); wrap.appendChild(box);
     var lastG = null;
@@ -599,8 +622,8 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
             el("div", { class: "amount", text: d.med.dose }), d.med.food ? el("div", { class: "note", text: "Give with food." }) : null,
             S.skipped[d.id] ? el("div", { class: "note", text: "Skipped." }) : null,
             !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("div", { class: "missed", text: "This dose may have been missed. Don't double up. Ask your clinic if unsure." }) : null,
-            S.skipped[d.id] ? el("button", { class: "givebtn", type: "button", "aria-pressed": "true", text: "Undo skip", onclick: function () { delete S.skipped[d.id]; save(); op({ t: "skip", id: d.id, ts: null }); render(); } }) : el("button", { class: "givebtn", type: "button", "aria-pressed": given ? "true" : "false", text: given ? "Given at " + fmtTime(new Date(given)) + " \u00b7 Undo" : "Mark as given", onclick: function () { toggle(d.id); } }),
-            !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "Mark as skipped", onclick: function () { S.skipped[d.id] = Date.now(); save(); op({ t: "skip", id: d.id, ts: S.skipped[d.id] }); render(); } }) : null]));
+            doseButtons(d.id),
+            null]));
           return li;
         }))
       ]));
