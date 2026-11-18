@@ -545,6 +545,17 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       box.appendChild(el("button", { type: "button", text: "Mark as given", onclick: function () { toggle(nxt.id); } }));
     }
     paintNext(); wrap.appendChild(box);
+    var lastG = null;
+    all.forEach(function (d) { var t = S.given[d.id]; if (t && (!lastG || t > lastG.t)) lastG = { d: d, t: t }; });
+    if (lastG) {
+      var lg = el("section", { class: "card", style: "border:2px solid var(--amber)", role: "status" }, [
+        el("div", { class: "small muted", text: "Last dose marked as given" }),
+        el("div", { style: "font-weight:700;font-size:18px", text: lastG.d.med.name + ", " + lastG.d.med.dose }),
+        el("div", { class: "small muted", text: "Marked at " + fmtTime(new Date(lastG.t)) + (new Date(lastG.t).toDateString() === now.toDateString() ? " today" : " on " + fmtDay(new Date(lastG.t)))  + ". Tapped it by mistake?" }),
+        el("button", { class: "btn ghost", type: "button", style: "min-height:48px;align-self:flex-start", text: "Undo. I didn't give it", onclick: function () { toggle(lastG.d.id); } })
+      ]);
+      wrap.appendChild(lg);
+    }
     wrap.appendChild(alertsCard());
     if (all.length) {
       var n = all.filter(function (d) { return S.given[d.id]; }).length, p = el("div", { class: "progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(all.length), "aria-valuenow": String(n) }); p.appendChild(el("i", { style: "width:" + Math.round(100 * n / all.length) + "%" }));
@@ -568,7 +579,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
             el("div", { class: "amount", text: d.med.dose }), d.med.food ? el("div", { class: "note", text: "Give with food." }) : null,
             S.skipped[d.id] ? el("div", { class: "note", text: "Skipped." }) : null,
             !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("div", { class: "missed", text: "This dose may have been missed. Don't double up. Ask your clinic if unsure." }) : null,
-            S.skipped[d.id] ? el("button", { class: "givebtn", type: "button", "aria-pressed": "true", text: "Undo skip", onclick: function () { delete S.skipped[d.id]; save(); op({ t: "skip", id: d.id, ts: null }); render(); } }) : el("button", { class: "givebtn", type: "button", "aria-pressed": given ? "true" : "false", text: given ? "Given at " + fmtTime(new Date(given)) + " (tap to undo)" : "Mark as given", onclick: function () { toggle(d.id); } }),
+            S.skipped[d.id] ? el("button", { class: "givebtn", type: "button", "aria-pressed": "true", text: "Undo skip", onclick: function () { delete S.skipped[d.id]; save(); op({ t: "skip", id: d.id, ts: null }); render(); } }) : el("button", { class: "givebtn", type: "button", "aria-pressed": given ? "true" : "false", text: given ? "Given at " + fmtTime(new Date(given)) + " \u00b7 Undo" : "Mark as given", onclick: function () { toggle(d.id); } }),
             !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "Mark as skipped", onclick: function () { S.skipped[d.id] = Date.now(); save(); op({ t: "skip", id: d.id, ts: S.skipped[d.id] }); render(); } }) : null]));
           return li;
         }))
