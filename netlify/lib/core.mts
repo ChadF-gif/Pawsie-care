@@ -22,7 +22,7 @@ export const checkinLevel = (a: Record<string, string>) =>
 /* ---------- plan documents ---------- */
 export type Plan = any;
 export const emptyPlan = (): Plan => ({
-  rev: 0, planId: "", patient: "", summary: "", clinicName: "", clinicPhone: "", meds: [], rules: [], warnings: [], recheck: "",
+  rev: 0, planId: "", patient: "", summary: "", clinicName: "", clinicPhone: "", meds: [], rules: [], warnings: [], recheck: "", plain: null,
   given: {}, skipped: {}, prn: {}, rulesDone: {}, checkins: [], questions: "", tz: "America/New_York", phone: "", updatedAt: 0,
 });
 

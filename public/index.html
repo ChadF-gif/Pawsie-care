@@ -147,10 +147,10 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
 (function () {
   "use strict";
   var KEY = "pawsie-plan-v2";
-  var S = { planId: "", synced: false, phone: "", localOnly: [], view: "intake", photos: [], blobs: [], meds: [], rules: [], warnings: [], recheck: "", patient: "", summary: "", clinicName: "", clinicPhone: "",
+  var S = { planId: "", synced: false, phone: "", localOnly: [], view: "intake", photos: [], blobs: [], meds: [], rules: [], warnings: [], recheck: "", plain: null, patient: "", summary: "", clinicName: "", clinicPhone: "",
     given: {}, prn: {}, skipped: {}, rulesDone: {}, checkins: [], draft: {}, questions: "", day: null, status: "", error: "", busy: false, manual: false, notify: false, notified: {} };
 
-  function save() { try { localStorage.setItem(KEY, JSON.stringify({ patient: S.patient, summary: S.summary, clinicName: S.clinicName, clinicPhone: S.clinicPhone, meds: S.meds, rules: S.rules, warnings: S.warnings, recheck: S.recheck, given: S.given, prn: S.prn, planId: S.planId, synced: S.synced, phone: S.phone, localOnly: S.localOnly, skipped: S.skipped, rulesDone: S.rulesDone, checkins: S.checkins, questions: S.questions })); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify({ patient: S.patient, summary: S.summary, clinicName: S.clinicName, clinicPhone: S.clinicPhone, meds: S.meds, rules: S.rules, warnings: S.warnings, plain: S.plain, recheck: S.recheck, given: S.given, prn: S.prn, planId: S.planId, synced: S.synced, phone: S.phone, localOnly: S.localOnly, skipped: S.skipped, rulesDone: S.rulesDone, checkins: S.checkins, questions: S.questions })); } catch (e) {} }
   try {
     var d0 = JSON.parse(localStorage.getItem(KEY) || "null");
     if (d0 && d0.meds && d0.meds.length) { Object.keys(d0).forEach(function (k) { if (d0[k] != null) S[k] = d0[k]; }); S.view = "plan"; }
@@ -202,6 +202,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     S.recheck = "Come back 10 to 14 days after discharge. Staples come out at this visit.";
     S.rules = ["Cone (e-collar) stays on 24/7 until the recheck.", "No baths and no getting wet until after the recheck.", "Indoors on a soft bed. Leash walks only. No running, jumping or playing.", "Normal food is fine. Coax her to eat if needed."];
     S.warnings = ["Incision red, swollen, leaking or opening", "Retching without bringing anything up, or a tight swollen belly", "Refusing food and water, or extreme tiredness"];
+    S.plain = { short: "Maple had surgery and is home to heal. Her medicines keep her comfortable while the cut closes up.", points: ["What happened: Maple had surgery on Nov 16.", "What it means: the cone, rest and medicines protect the cut while it heals.", "What is next: a recheck visit in 10 to 14 days, when the staples come out."], terms: [{ term: "Staples", meaning: "Tiny metal clips holding the skin closed. The vet removes them at the recheck." }, { term: "E-collar (cone)", meaning: "The plastic cone that stops her licking or chewing the cut." }] };
     var SRC = {
       Gabapentin: { sheet: { dose: "2 capsules", every_hours: 8, days: 10 }, bottle: { dose: "2 capsules", every_hours: 8, days: 10 } },
       Carprofen: { sheet: { dose: "½ tablet", every_hours: 12, days: null }, bottle: { dose: "½ tablet", every_hours: 12, days: 3 } },
@@ -217,7 +218,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     S.meds.forEach(function (m) { m.src = SRC[m.name]; applyCross(m); });
   }
   function blank() {
-    S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.questions = ""; S.notified = {}; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.day = null; S.manual = true;
+    S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.questions = ""; S.notified = {}; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.plain = null; S.day = null; S.manual = true;
     S.meds = [mk({ seen: ["manual"] })];
   }
 
@@ -256,6 +257,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.questions = ""; S.notified = {}; S.manual = false; S.day = null;
       S.patient = data.patient || ""; S.summary = data.summary || ""; S.clinicName = data.clinic || ""; S.clinicPhone = data.clinic_phone || "";
       S.rules = Array.isArray(data.care_rules) ? data.care_rules : []; S.warnings = Array.isArray(data.warning_signs) ? data.warning_signs : []; S.recheck = data.recheck || "";
+      S.plain = data.plain && typeof data.plain === "object" && data.plain.short ? data.plain : null;
       var f = toInput(nextHour());
       S.meds = (data.meds || []).map(function (m) {
         var sh = m.sheet || null, bo = m.bottle || null, pick = bo || sh || {};
@@ -388,7 +390,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
   }
   function op(o) { pending.push(o); flush(); }
   function planPayload() {
-    return { planId: S.planId, patient: S.patient, summary: S.summary, clinicName: S.clinicName, clinicPhone: S.clinicPhone, recheck: S.recheck, rules: S.rules, warnings: S.warnings,
+    return { planId: S.planId, patient: S.patient, summary: S.summary, clinicName: S.clinicName, clinicPhone: S.clinicPhone, recheck: S.recheck, rules: S.rules, warnings: S.warnings, plain: S.plain,
       meds: S.meds.map(function (m) { var c = {}; Object.keys(m).forEach(function (k) { if (k !== "src") c[k] = m[k]; }); c.firstTs = m.first ? new Date(m.first).getTime() : 0; c.dueTs = m.dueNext ? new Date(m.dueNext).getTime() : 0; return c; }) };
   }
   function syncPlan() {
@@ -401,10 +403,10 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
 
   function applyServer(p) {
     lastRev = p.rev;
-    if (!p.meds || !p.meds.length) { if (S.meds.length && S.synced) { S.meds = []; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.patient = ""; S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.planId = ""; S.view = "intake"; } save(); return; }
+    if (!p.meds || !p.meds.length) { if (S.meds.length && S.synced) { S.meds = []; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.plain = null; S.patient = ""; S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.planId = ""; S.view = "intake"; } save(); return; }
     var other = p.planId && p.planId !== S.planId;
     if (other) {
-      S.planId = p.planId; S.patient = p.patient; S.summary = p.summary; S.clinicName = p.clinicName; S.clinicPhone = p.clinicPhone; S.recheck = p.recheck; S.rules = p.rules; S.warnings = p.warnings;
+      S.planId = p.planId; S.patient = p.patient; S.summary = p.summary; S.clinicName = p.clinicName; S.clinicPhone = p.clinicPhone; S.recheck = p.recheck; S.rules = p.rules; S.warnings = p.warnings; S.plain = p.plain || null;
       S.meds = p.meds.map(function (m) { m.confirmed = true; return m; }); S.day = null; S.synced = true;
       if (S.view === "intake" || S.view === "check") S.view = "plan";
     }
@@ -520,6 +522,13 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       S.summary ? el("p", { class: "sub", text: S.summary }) : null,
       S.clinicName ? el("p", { class: "call" }, [el("span", { text: "Questions, any time:" }), S.clinicPhone ? el("b", { text: S.clinicPhone }) : el("b", { text: S.clinicName }), S.clinicPhone ? el("a", { href: "tel:" + S.clinicPhone.replace(/[^0-9+]/g, ""), text: "Call " + S.clinicName }) : null]) : null
     ]));
+    if (S.plain && S.plain.short) {
+      var pc = el("section", { class: "card" }, [el("h2", { text: "In plain English" }), el("p", { text: S.plain.short })]);
+      if (S.plain.points && S.plain.points.length) pc.appendChild(el("ul", { class: "plain" }, S.plain.points.map(function (x) { return el("li", { text: x }); })));
+      if (S.plain.terms && S.plain.terms.length) pc.appendChild(el("details", { class: "fold" }, [el("summary", { text: "What the words mean" }), el("dl", { class: "every" }, S.plain.terms.reduce(function (a, t) { a.push(el("dt", { text: t.term }), el("dd", { text: t.meaning })); return a; }, []))]));
+      pc.appendChild(el("p", { class: "foot", text: "This explains your vet's notes in simpler words. It doesn't add to them. Ask your clinic if anything is unclear." }));
+      wrap.appendChild(pc);
+    }
     var now = new Date(), nxt = null;
     for (var i = 0; i < all.length; i++) if (!S.given[all[i].id] && !S.skipped[all[i].id] && all[i].when.getTime() >= now.getTime() - 3 * 3600000) { nxt = all[i]; break; }
     var box = el("section", { class: "card next", "aria-live": "polite" });

@@ -76,6 +76,11 @@ export default async (req: Request, context: Context) => {
             meds: (Array.isArray(n.meds) ? n.meds : []).slice(0, 20).map(cleanMed),
             rules: (Array.isArray(n.rules) ? n.rules : []).slice(0, 30).map((x: any) => clip(x, 300)),
             warnings: (Array.isArray(n.warnings) ? n.warnings : []).slice(0, 30).map((x: any) => clip(x, 300)),
+            plain: n.plain && typeof n.plain === "object" ? {
+              short: clip(n.plain.short, 600),
+              points: (Array.isArray(n.plain.points) ? n.plain.points : []).slice(0, 10).map((x: any) => clip(x, 300)),
+              terms: (Array.isArray(n.plain.terms) ? n.plain.terms : []).slice(0, 12).map((t: any) => ({ term: clip(t && t.term, 60), meaning: clip(t && t.meaning, 240) })),
+            } : null,
             ...track,
           });
           if (op.tz) p.tz = clip(op.tz, 60);
