@@ -543,7 +543,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       var ev = m.every * 3600000, f = m.first ? new Date(m.first).getTime() : NaN, due;
       if (anchor) due = anchor + ev;
       else if (isNaN(f)) due = nowMs;
-      else { var base = nowMs - 3600000; due = f >= base ? f : f + Math.ceil((base - f) / ev) * ev; }
+      else { var base = nowMs - ev / 2; due = f >= base ? f : f + Math.ceil((base - f) / ev) * ev; }
       out.push({ id: "p|" + m.id + "|due|" + (!anchor && isNaN(f) ? 0 : due), when: new Date(due), med: m, kind: "prnDue", ready: due <= nowMs });
     });
     return out;
