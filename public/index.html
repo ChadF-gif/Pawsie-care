@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pawsie</title>
+<meta name="theme-color" content="#0e3b43">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20role%3D%22img%22%20aria-label%3D%22Pawsie%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%230E3B43%22/%3E%3Cg%20transform%3D%22translate%2810.87%2050.57%29%20scale%280.02131%29%22%3E%3Cpath%20d%3D%22M1883%20-987Q1883%20-866%201837.0%20-770.5Q1791%20-675%201707.0%20-608.5Q1623%20-542%201506.0%20-506.5Q1389%20-471%201248%20-471Q1231%20-471%201218.5%20-480.5Q1206%20-490%201206%20-509Q1206%20-524%201217.0%20-535.0Q1228%20-546%201244%20-546Q1370%20-546%201474.0%20-575.0Q1578%20-604%201652.0%20-660.5Q1726%20-717%201767.0%20-799.0Q1808%20-881%201808%20-987Q1808%20-1095%201760.5%20-1179.0Q1713%20-1263%201627.5%20-1321.0Q1542%20-1379%201423.5%20-1409.0Q1305%20-1439%201163%20-1439Q1029%20-1439%20903.5%20-1417.0Q778%20-1395%20668.0%20-1355.0Q558%20-1315%20467.5%20-1259.0Q377%20-1203%20312.5%20-1136.0Q248%20-1069%20212.0%20-992.5Q176%20-916%20176%20-834Q176%20-762%20201.0%20-708.0Q226%20-654%20267.5%20-617.5Q309%20-581%20363.0%20-563.0Q417%20-545%20476%20-545Q546%20-545%20600.5%20-560.0Q655%20-575%20692.5%20-593.0Q730%20-611%20750.0%20-626.5Q770%20-642%20772%20-644Q783%20-655%20798%20-655Q813%20-655%20824.5%20-643.5Q836%20-632%20836%20-617Q836%20-600%20824%20-590Q822%20-588%20798.5%20-569.0Q775%20-550%20730.5%20-527.5Q686%20-505%20622.0%20-487.0Q558%20-469%20476%20-469Q401%20-469%20332.5%20-494.0Q264%20-519%20212.5%20-566.5Q161%20-614%20130.5%20-681.5Q100%20-749%20100%20-834Q100%20-927%20138.5%20-1013.5Q177%20-1100%20246.5%20-1175.5Q316%20-1251%20413.0%20-1313.5Q510%20-1376%20628.0%20-1420.5Q746%20-1465%20881.0%20-1489.5Q1016%20-1514%201161%20-1514Q1320%20-1514%201453.0%20-1478.0Q1586%20-1442%201681.5%20-1374.0Q1777%20-1306%201830.0%20-1208.5Q1883%20-1111%201883%20-987ZM1289%20-1225Q1304%20-1225%201315.5%20-1214.5Q1327%20-1204%201327%20-1187Q1327%20-1177%201321.5%20-1169.0Q1316%20-1161%201308%20-1154Q1252%20-1110%201218.5%20-1059.0Q1185%20-1008%201167.5%20-949.5Q1150%20-891%201144.5%20-825.0Q1139%20-759%201139%20-687V-561Q1139%20-437%201117.0%20-325.5Q1095%20-214%201042.5%20-130.0Q990%20-46%20902.0%203.5Q814%2053%20681%2053Q621%2053%20563.5%2038.5Q506%2024%20455.0%20-3.5Q404%20-31%20361.0%20-71.0Q318%20-111%20287%20-161Q285%20-165%20283.0%20-170.5Q281%20-176%20281%20-181Q281%20-195%20291.5%20-206.5Q302%20-218%20319%20-218Q329%20-218%20337.5%20-212.5Q346%20-207%20352%20-199Q416%20-110%20497.0%20-65.5Q578%20-21%20681%20-21Q799%20-21%20873.5%20-64.5Q948%20-108%20990.5%20-183.5Q1033%20-259%201048.5%20-360.0Q1064%20-461%201064%20-575V-702Q1064%20-769%201070.0%20-840.5Q1076%20-912%201097.5%20-980.5Q1119%20-1049%201159.5%20-1110.5Q1200%20-1172%201269%20-1219Q1273%20-1221%201279.0%20-1223.0Q1285%20-1225%201289%20-1225Z%22%20fill%3D%22%23FFFFFF%22%20stroke%3D%22%23FFFFFF%22%20stroke-width%3D%2270%22%20stroke-linejoin%3D%22round%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%3Ccircle%20cx%3D%2249%22%20cy%3D%2216%22%20r%3D%224.6%22%20fill%3D%22%23F4B63F%22/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #eef3f2; --surface: #ffffff; --ink: #12292b; --muted: #54696b; --line: #d3e0de;
+  --accent: #0e3b43; --accent-ink: #ffffff; --amber: #f4b63f;
+  --danger: #b3261e; --danger-bg: #fdecea; --warn-bg: #fff3d6; --warn: #8a5a00;
+  --c0: #6a4fb3; --c1: #1d6fb8; --c2: #b8620f; --c3: #1f7a5a; --c4: #a3366b;
+  --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1819; --surface: #152426; --ink: #e6f1ef; --muted: #93aeab; --line: #254043;
+    --accent: #4fc3b5; --accent-ink: #062320; --danger: #ff8a80; --danger-bg: #3a1c1a; --warn-bg: #3a2d0c; --warn: #f2c45a;
+    --c0: #b9a4ff; --c1: #7ab8f0; --c2: #f0a85a; --c3: #6fd3a4; --c4: #f09ac4;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 var(--body); -webkit-text-size-adjust: 100%; }
+main { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; display: flex; flex-direction: column; gap: 16px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: 30px; letter-spacing: -0.01em; }
+h2 { font-size: 20px; }
+p { margin: 0; }
+a { color: var(--accent); font-weight: 600; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.brand { color: var(--ink); display: flex; justify-content: space-between; align-items: center; }
+.brand .tag { color: var(--muted); font-size: 13px; }
+header { display: flex; flex-direction: column; gap: 6px; }
+.sub { color: var(--muted); font-size: 15px; }
+.call { display: inline-flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 15px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.btn { min-height: 52px; padding: 0 18px; border-radius: 12px; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink); font: 700 16px var(--body); cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--accent); }
+.btn.big { min-height: 64px; font-size: 20px; width: 100%; }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.linkbtn { display: flex; align-items: center; justify-content: center; text-align: center; text-decoration: none; padding: 8px 16px; line-height: 1.2; font-weight: 700; }
+.linkish { background: none; border: 0; padding: 8px 4px; color: var(--accent); font: 600 14px var(--body); text-decoration: underline; cursor: pointer; min-height: 44px; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.thumb { position: relative; }
+.thumb img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); }
+.thumb .x { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; border-radius: 50%; border: 0; background: #0e3b43cc; color: #fff; font-size: 18px; line-height: 1; cursor: pointer; }
+.status { font-size: 14px; color: var(--muted); min-height: 20px; }
+.err { color: var(--danger); font-weight: 600; }
+
+/* Editor */
+.med { border: 1px solid var(--line); border-left: 6px solid var(--c, var(--accent)); border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 10px; background: var(--surface); }
+.flagnote { background: var(--warn-bg); color: var(--warn); border-radius: 8px; padding: 8px 10px; font-size: 14px; font-weight: 600; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; }
+.fields label, .petname { display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-weight: 600; color: var(--muted); }
+.fields input[type="text"], .fields input[type="number"], .fields input[type="datetime-local"], .petname input { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 0 10px; background: var(--bg); color: var(--ink); font: 500 16px var(--body); width: 100%; }
+.fields .wide { grid-column: 1 / -1; }
+.check { display: flex; gap: 8px; align-items: center; font-size: 15px; font-weight: 600; min-height: 44px; }
+.check input { width: 22px; height: 22px; accent-color: var(--accent); }
+
+/* Next up */
+.next { border: 2px solid var(--c, var(--accent)); gap: 6px; }
+.next .label { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.next .when { font-family: var(--display); font-size: 34px; font-weight: 700; line-height: 1.05; font-variant-numeric: tabular-nums; }
+.next .what { font-size: 18px; font-weight: 600; }
+.next .how { color: var(--muted); }
+.next button { align-self: flex-start; margin-top: 6px; min-height: 44px; padding: 0 16px; border-radius: 10px; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink); font: 700 15px var(--body); cursor: pointer; }
+.progress { height: 10px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.progress > i { display: block; height: 100%; background: var(--amber); border-radius: 99px; }
+
+/* Days + doses */
+.daynav { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.daynav .title { text-align: center; flex: 1; }
+.daynav .title h2 { font-size: 22px; }
+.daynav .title span { color: var(--muted); font-size: 14px; }
+.navbtn { width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 20px; cursor: pointer; }
+.navbtn:disabled { opacity: .35; cursor: default; }
+.doses { display: flex; flex-direction: column; gap: 10px; padding: 0; margin: 0; list-style: none; }
+.dose { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--c); border-radius: 12px; padding: 12px 12px 12px 10px; }
+.dose.done { opacity: .62; }
+.dose .time { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.dose .time small { display: block; font-family: var(--body); font-weight: 600; font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.dose .body { display: flex; flex-direction: column; gap: 4px; }
+.dose .kind { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--c); }
+.dose .name { font-weight: 700; }
+.dose .name span { color: var(--c); }
+.dose .amount { font-size: 18px; font-weight: 600; }
+.dose .note { color: var(--muted); font-size: 14px; }
+.givebtn { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-ink); font: 700 15px var(--body); cursor: pointer; align-self: flex-start; margin-top: 4px; }
+.givebtn[aria-pressed="true"] { background: transparent; color: var(--accent); }
+.givebtn:disabled { opacity: .4; cursor: not-allowed; }
+.every { display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 15px; margin: 0; }
+.every dt { font-weight: 700; }
+.every dd { margin: 0; color: var(--muted); }
+.stop { background: var(--danger-bg); border-color: var(--danger); }
+.stop h2 { color: var(--danger); }
+ul.plain { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.foot { color: var(--muted); font-size: 13px; }
+details.fold > summary { font: 600 17px var(--display); cursor: pointer; list-style: none; min-height: 32px; display: flex; align-items: center; justify-content: space-between; }
+details.fold > summary::after { content: "+"; font-size: 24px; color: var(--accent); }
+details.fold[open] > summary::after { content: "\2212"; }
+details.fold > :not(summary) { margin-top: 12px; }
+@media print { .noprint, .btn, .givebtn, .navbtn { display: none !important; } body { background: #fff; } .card { break-inside: avoid; } }
+@media (max-width: 380px) { .dose { grid-template-columns: 62px 1fr; } }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { min-height: 48px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); font: 600 15px var(--body); cursor: pointer; }
+.chip.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 10px; background: var(--bg); color: var(--ink); font: 500 16px var(--body); resize: vertical; box-sizing: border-box; }
+.dotl { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--c3); flex: none; }
+.dotl.l1 { background: var(--amber); }
+.dotl.l2 { background: var(--danger); }
+.missed { background: var(--warn-bg); color: var(--warn); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 600; }
+.entry { border-top: 1px solid var(--line); padding-top: 10px; display: flex; flex-direction: column; gap: 6px; }
+.callbtn { background: var(--danger); border-color: var(--danger); color: #fff; }
+.rule { display: flex; gap: 12px; align-items: flex-start; text-align: left; width: 100%; min-height: 48px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); font: 500 15px var(--body); cursor: pointer; }
+.rule .box { flex: none; width: 24px; height: 24px; border-radius: 6px; border: 2px solid var(--accent); display: grid; place-items: center; font-weight: 800; color: var(--accent-ink); }
+.rule.on { opacity: .75; } .rule.on .box { background: var(--accent); } .rule.on span:last-child { text-decoration: line-through; }
+.logtimes { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.logchip { display: inline-flex; align-items: center; gap: 4px; background: var(--tint, var(--bg)); border: 1px solid var(--line); border-radius: 999px; padding: 2px 4px 2px 10px; font-size: 13px; font-weight: 600; }
+.logchip button { background: none; border: 0; min-width: 32px; min-height: 32px; color: var(--muted); font-size: 18px; cursor: pointer; }
+.datebox { background: var(--warn-bg); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+</style>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0e3b43">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pawsie">
+</head>
+<body>
+<main>
+  <div class="brand"><div id="logo" aria-label="Pawsie"><svg style="height:48px;width:auto;display:block" xmlns="http://www.w3.org/2000/svg" viewBox="-200 -1700 6200 2300" role="img" aria-label="Pawsie"><path d="M1883 -987Q1883 -866 1837.0 -770.5Q1791 -675 1707.0 -608.5Q1623 -542 1506.0 -506.5Q1389 -471 1248 -471Q1231 -471 1218.5 -480.5Q1206 -490 1206 -509Q1206 -524 1217.0 -535.0Q1228 -546 1244 -546Q1370 -546 1474.0 -575.0Q1578 -604 1652.0 -660.5Q1726 -717 1767.0 -799.0Q1808 -881 1808 -987Q1808 -1095 1760.5 -1179.0Q1713 -1263 1627.5 -1321.0Q1542 -1379 1423.5 -1409.0Q1305 -1439 1163 -1439Q1029 -1439 903.5 -1417.0Q778 -1395 668.0 -1355.0Q558 -1315 467.5 -1259.0Q377 -1203 312.5 -1136.0Q248 -1069 212.0 -992.5Q176 -916 176 -834Q176 -762 201.0 -708.0Q226 -654 267.5 -617.5Q309 -581 363.0 -563.0Q417 -545 476 -545Q546 -545 600.5 -560.0Q655 -575 692.5 -593.0Q730 -611 750.0 -626.5Q770 -642 772 -644Q783 -655 798 -655Q813 -655 824.5 -643.5Q836 -632 836 -617Q836 -600 824 -590Q822 -588 798.5 -569.0Q775 -550 730.5 -527.5Q686 -505 622.0 -487.0Q558 -469 476 -469Q401 -469 332.5 -494.0Q264 -519 212.5 -566.5Q161 -614 130.5 -681.5Q100 -749 100 -834Q100 -927 138.5 -1013.5Q177 -1100 246.5 -1175.5Q316 -1251 413.0 -1313.5Q510 -1376 628.0 -1420.5Q746 -1465 881.0 -1489.5Q1016 -1514 1161 -1514Q1320 -1514 1453.0 -1478.0Q1586 -1442 1681.5 -1374.0Q1777 -1306 1830.0 -1208.5Q1883 -1111 1883 -987ZM1289 -1225Q1304 -1225 1315.5 -1214.5Q1327 -1204 1327 -1187Q1327 -1177 1321.5 -1169.0Q1316 -1161 1308 -1154Q1252 -1110 1218.5 -1059.0Q1185 -1008 1167.5 -949.5Q1150 -891 1144.5 -825.0Q1139 -759 1139 -687V-561Q1139 -437 1117.0 -325.5Q1095 -214 1042.5 -130.0Q990 -46 902.0 3.5Q814 53 681 53Q621 53 563.5 38.5Q506 24 455.0 -3.5Q404 -31 361.0 -71.0Q318 -111 287 -161Q285 -165 283.0 -170.5Q281 -176 281 -181Q281 -195 291.5 -206.5Q302 -218 319 -218Q329 -218 337.5 -212.5Q346 -207 352 -199Q416 -110 497.0 -65.5Q578 -21 681 -21Q799 -21 873.5 -64.5Q948 -108 990.5 -183.5Q1033 -259 1048.5 -360.0Q1064 -461 1064 -575V-702Q1064 -769 1070.0 -840.5Q1076 -912 1097.5 -980.5Q1119 -1049 1159.5 -1110.5Q1200 -1172 1269 -1219Q1273 -1221 1279.0 -1223.0Q1285 -1225 1289 -1225Z M2724 -279Q2720 -271 2707.5 -245.5Q2695 -220 2675.5 -187.0Q2656 -154 2630.0 -118.0Q2604 -82 2572.0 -52.0Q2540 -22 2503.0 -2.5Q2466 17 2425 17Q2367 17 2327.5 -20.0Q2288 -57 2270 -113Q2236 -56 2189.0 -22.5Q2142 11 2095 11Q2058 11 2028.0 -2.5Q1998 -16 1977.0 -40.5Q1956 -65 1944.5 -98.0Q1933 -131 1933 -170Q1933 -248 1959.5 -307.5Q1986 -367 2027.0 -407.0Q2068 -447 2117.5 -467.0Q2167 -487 2213 -487Q2244 -487 2270.0 -478.5Q2296 -470 2314.5 -460.0Q2333 -450 2343.0 -441.5Q2353 -433 2354 -432Q2365 -419 2365 -405Q2365 -390 2354.0 -378.5Q2343 -367 2328 -367Q2312 -367 2301 -378Q2299 -380 2292.0 -385.5Q2285 -391 2273.0 -397.0Q2261 -403 2244.5 -407.5Q2228 -412 2207 -412Q2176 -412 2141.0 -398.0Q2106 -384 2077.0 -354.5Q2048 -325 2028.5 -280.5Q2009 -236 2009 -175Q2009 -156 2013.0 -136.5Q2017 -117 2027.0 -101.0Q2037 -85 2054.0 -75.0Q2071 -65 2096 -65Q2114 -65 2137.5 -77.0Q2161 -89 2182.5 -114.0Q2204 -139 2221.5 -177.0Q2239 -215 2246 -267Q2248 -281 2259.0 -290.5Q2270 -300 2285 -300Q2299 -300 2309.5 -289.0Q2320 -278 2321 -264Q2322 -245 2325.0 -210.5Q2328 -176 2338.5 -142.0Q2349 -108 2370.0 -83.0Q2391 -58 2428 -58Q2452 -58 2475.5 -71.0Q2499 -84 2521.5 -105.5Q2544 -127 2564.5 -154.5Q2585 -182 2602.0 -210.0Q2619 -238 2632.0 -264.0Q2645 -290 2654 -309Q2659 -320 2668.5 -326.0Q2678 -332 2689 -332Q2706 -332 2716.5 -319.5Q2727 -307 2727 -293Q2727 -286 2724 -279Z M3356 -278Q3353 -226 3342.0 -173.5Q3331 -121 3307.5 -79.0Q3284 -37 3246.0 -10.5Q3208 16 3152 16Q3117 16 3090.5 5.5Q3064 -5 3044.5 -22.5Q3025 -40 3012.0 -62.5Q2999 -85 2990 -110Q2955 -52 2907.5 -20.5Q2860 11 2813 11Q2775 11 2744.5 -3.0Q2714 -17 2692.5 -42.5Q2671 -68 2659.0 -104.0Q2647 -140 2647 -185Q2647 -260 2660.5 -314.5Q2674 -369 2690.5 -404.0Q2707 -439 2721.0 -456.5Q2735 -474 2735 -474Q2740 -480 2747.5 -483.0Q2755 -486 2763 -486Q2779 -486 2789.5 -474.5Q2800 -463 2800 -448Q2800 -437 2792 -424Q2788 -418 2776.5 -401.0Q2765 -384 2753.0 -355.0Q2741 -326 2731.5 -284.0Q2722 -242 2722 -185Q2722 -126 2746.0 -95.5Q2770 -65 2813 -65Q2834 -65 2859.0 -76.5Q2884 -88 2906.0 -112.0Q2928 -136 2944.0 -173.0Q2960 -210 2964 -260L2977 -432Q2978 -447 2989.5 -457.0Q3001 -467 3016 -467Q3033 -467 3043.0 -454.5Q3053 -442 3053 -426L3042 -261Q3039 -208 3045.5 -170.0Q3052 -132 3067.0 -107.5Q3082 -83 3104.0 -71.5Q3126 -60 3153 -60Q3189 -60 3214.0 -81.0Q3239 -102 3254.0 -138.0Q3269 -174 3275.5 -221.5Q3282 -269 3282 -322Q3282 -385 3275.0 -427.0Q3268 -469 3268 -483Q3268 -498 3279.0 -509.5Q3290 -521 3306 -521Q3320 -521 3330.0 -512.5Q3340 -504 3343 -490Q3344 -486 3349.0 -467.0Q3354 -448 3363.0 -421.5Q3372 -395 3386.5 -365.5Q3401 -336 3421.5 -311.0Q3442 -286 3468.5 -269.5Q3495 -253 3529 -253Q3548 -253 3561.5 -260.5Q3575 -268 3584.0 -278.0Q3593 -288 3597.5 -297.0Q3602 -306 3603 -308Q3608 -319 3617.5 -325.5Q3627 -332 3638 -332Q3655 -332 3665.5 -319.5Q3676 -307 3676 -293Q3676 -281 3665.5 -261.0Q3655 -241 3636.0 -222.5Q3617 -204 3589.5 -190.5Q3562 -177 3529 -177Q3500 -177 3475.0 -185.5Q3450 -194 3428.5 -208.0Q3407 -222 3389.0 -240.0Q3371 -258 3356 -278Z M3715 -370Q3709 -354 3700.5 -334.0Q3692 -314 3681 -292Q3672 -275 3662.5 -265.5Q3653 -256 3638 -256Q3621 -256 3611.0 -266.5Q3601 -277 3601 -291Q3601 -296 3602.0 -299.5Q3603 -303 3607 -311Q3633 -361 3645.5 -398.5Q3658 -436 3666 -477Q3659 -500 3656.0 -516.0Q3653 -532 3653 -549Q3653 -582 3667.0 -602.5Q3681 -623 3706 -623Q3729 -623 3742.5 -603.0Q3756 -583 3756 -554Q3756 -538 3753.0 -522.0Q3750 -506 3745 -482Q3768 -425 3791.0 -381.0Q3814 -337 3832.0 -300.5Q3850 -264 3861.5 -232.0Q3873 -200 3873 -168Q3873 -126 3856.0 -88.0Q3839 -50 3800 -24Q3805 -23 3810.0 -23.0Q3815 -23 3820 -23Q3877 -23 3925.0 -49.0Q3973 -75 4011.5 -116.5Q4050 -158 4080.0 -208.5Q4110 -259 4132 -309Q4142 -332 4160 -332Q4177 -332 4186.5 -320.0Q4196 -308 4196 -294Q4196 -286 4193 -279Q4182 -252 4164.5 -217.5Q4147 -183 4122.5 -146.5Q4098 -110 4066.0 -75.0Q4034 -40 3994.5 -12.5Q3955 15 3908.0 31.5Q3861 48 3805 48Q3738 48 3680.5 24.5Q3623 1 3587 -53Q3581 -62 3581 -72Q3581 -87 3592.5 -98.5Q3604 -110 3619 -110Q3635 -110 3646 -99Q3647 -97 3653.0 -92.5Q3659 -88 3667.5 -82.5Q3676 -77 3687.5 -73.0Q3699 -69 3711 -69Q3735 -69 3751.5 -79.0Q3768 -89 3778.0 -103.5Q3788 -118 3792.5 -134.5Q3797 -151 3797 -163Q3797 -188 3789.0 -213.0Q3781 -238 3768.5 -263.0Q3756 -288 3741.5 -314.5Q3727 -341 3715 -370Z M4125 -199Q4125 -343 4143 -486Q4145 -500 4155.5 -510.5Q4166 -521 4183 -521Q4198 -521 4208.0 -509.5Q4218 -498 4218 -483Q4218 -477 4215.5 -447.0Q4213 -417 4209.5 -375.5Q4206 -334 4203.5 -287.5Q4201 -241 4201 -202Q4201 -149 4211.5 -116.5Q4222 -84 4238.5 -66.0Q4255 -48 4273.5 -42.0Q4292 -36 4309 -36Q4337 -36 4367.0 -56.0Q4397 -76 4428.5 -112.0Q4460 -148 4492.0 -198.5Q4524 -249 4555 -311Q4560 -321 4569.0 -326.5Q4578 -332 4589 -332Q4605 -332 4615.5 -320.0Q4626 -308 4626 -294Q4626 -284 4622 -277Q4610 -254 4592.0 -221.0Q4574 -188 4551.0 -153.0Q4528 -118 4500.5 -83.5Q4473 -49 4442.0 -21.5Q4411 6 4377.0 23.0Q4343 40 4308 40Q4263 40 4229.0 21.0Q4195 2 4171.5 -30.0Q4148 -62 4136.5 -105.5Q4125 -149 4125 -199Z M4674 -110Q4695 -81 4728.0 -63.5Q4761 -46 4809 -46Q4858 -46 4898.0 -69.5Q4938 -93 4971.0 -131.0Q5004 -169 5030.0 -216.0Q5056 -263 5077 -310Q5082 -321 5091.0 -326.5Q5100 -332 5111 -332Q5128 -332 5138.5 -320.0Q5149 -308 5149 -294Q5149 -289 5148.0 -285.5Q5147 -282 5145 -278Q5076 -126 4994.5 -49.0Q4913 28 4810 30Q4744 30 4696.0 4.5Q4648 -21 4617.0 -61.5Q4586 -102 4571.0 -153.0Q4556 -204 4556 -255Q4556 -306 4568.5 -349.0Q4581 -392 4604.5 -424.0Q4628 -456 4660.5 -474.0Q4693 -492 4732 -492Q4755 -492 4777.5 -482.5Q4800 -473 4818.0 -455.5Q4836 -438 4847.0 -413.0Q4858 -388 4858 -356Q4858 -315 4844.0 -279.0Q4830 -243 4805.5 -212.0Q4781 -181 4747.0 -155.0Q4713 -129 4674 -110ZM4644 -175Q4675 -188 4700.5 -208.0Q4726 -228 4744.0 -252.0Q4762 -276 4772.0 -302.5Q4782 -329 4782 -356Q4782 -386 4767.0 -401.5Q4752 -417 4732 -417Q4705 -417 4686.0 -402.0Q4667 -387 4655.0 -363.0Q4643 -339 4637.5 -309.5Q4632 -280 4632 -251Q4632 -233 4635.5 -213.0Q4639 -193 4644 -175Z" fill="currentColor" stroke="currentColor" stroke-width="60" stroke-linejoin="round" stroke-linecap="round"/><path d="M5420 -30 C5760 140 5320 430 3500 345 C2300 285 1300 330 700 350 C100 370 -80 150 160 40 C380 -60 560 150 330 250" fill="none" stroke="currentColor" stroke-width="75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4190" cy="-745" r="95" fill="#F4B63F"/></svg></div><span class="tag">Plans from photos</span></div>
+  <div id="view"></div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  var KEY = "pawsie-plan-v2";
+  var S = { planId: "", synced: false, phone: "", localOnly: [], view: "intake", photos: [], blobs: [], meds: [], rules: [], warnings: [], recheck: "", patient: "", summary: "", clinicName: "", clinicPhone: "",
+    given: {}, prn: {}, skipped: {}, rulesDone: {}, checkins: [], draft: {}, questions: "", day: null, status: "", error: "", busy: false, manual: false, notify: false, notified: {} };
+
+  function save() { try { localStorage.setItem(KEY, JSON.stringify({ patient: S.patient, summary: S.summary, clinicName: S.clinicName, clinicPhone: S.clinicPhone, meds: S.meds, rules: S.rules, warnings: S.warnings, recheck: S.recheck, given: S.given, prn: S.prn, planId: S.planId, synced: S.synced, phone: S.phone, localOnly: S.localOnly, skipped: S.skipped, rulesDone: S.rulesDone, checkins: S.checkins, questions: S.questions })); } catch (e) {} }
+  try {
+    var d0 = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (d0 && d0.meds && d0.meds.length) { Object.keys(d0).forEach(function (k) { if (d0[k] != null) S[k] = d0[k]; }); S.view = "plan"; }
+  } catch (e) {}
+
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      if (k === "class") n.className = attrs[k]; else if (k === "text") n.textContent = attrs[k];
+      else if (k.slice(0, 2) === "on") n.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] !== false && attrs[k] != null) n.setAttribute(k, attrs[k] === true ? "" : attrs[k]);
+    });
+    (kids || []).forEach(function (c) { if (c) n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return n;
+  }
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function toInput(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + "T" + pad(d.getHours()) + ":" + pad(d.getMinutes()); }
+  function fmtTime(d) { var h = d.getHours(), ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return h + ":" + pad(d.getMinutes()) + " " + ap; }
+  var WD = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  function fmtDay(d) { return WD[d.getDay()] + ", " + MO[d.getMonth()] + " " + d.getDate(); }
+  function dayKey(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+  function medDays(m) { return m.days > 0 ? m.days : 14; }
+  function nextHour() { var d = new Date(); d.setMinutes(0, 0, 0); d.setHours(d.getHours() + 1); return d; }
+  function hrs(ms) { var m = Math.max(0, Math.round(ms / 60000)), h = Math.floor(m / 60); return (h ? h + "h " : "") + (m % 60) + "m"; }
+  var uid = 0;
+  function mk(o) { uid++; var m = { id: "m" + Date.now().toString(36) + uid, name: "", strength: "", dose: "", every: 8, days: 7, food: false, asNeeded: false, purpose: "", seen: [], note: "", first: toInput(nextHour()) }; Object.keys(o || {}).forEach(function (k) { m[k] = o[k]; }); return m; }
+  function color(m) { return "var(--c" + (S.meds.indexOf(m) % 5) + ")"; }
+
+  /* Sheet-vs-bottle comparison: the model only transcribes each source; this code decides what disagrees. */
+  function norm(v) { return v == null ? "" : String(v).toLowerCase().replace(/\s+/g, " ").trim(); }
+  function applyCross(m) {
+    var sh = m.src && m.src.sheet, bo = m.src && m.src.bottle, notes = [];
+    if (sh && !bo) { /* sheet only: nothing to compare, not a problem */ }
+    else if (bo && !sh) notes.push("On the bottle but not on the discharge sheet. Ask the clinic before giving it.");
+    else if (sh && bo) [["dose", "dose", ""], ["every_hours", "interval", " hours"], ["days", "length", " days"]].forEach(function (f) {
+      var a = sh[f[0]], b = bo[f[0]], A = norm(a), B = norm(b);
+      if (A && B && A !== B) notes.push("Sheet says " + f[1] + " " + a + f[2] + ", bottle says " + b + f[2] + ".");
+      else if (!A && B) notes.push("The sheet doesn't give the " + f[1] + "; the bottle says " + b + f[2] + ".");
+      else if (A && !B) notes.push("The bottle doesn't give the " + f[1] + "; the sheet says " + a + f[2] + ".");
+    });
+    if (m.extra) notes.push(m.extra);
+    m.note = notes.join(" "); m.confirmed = !m.note;
+  }
+
+  function demoCase() {
+    var f = toInput(nextHour());
+    S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.questions = ""; S.notified = {}; S.manual = false; S.day = null;
+    S.patient = "Maple"; S.summary = "Surgery on Nov 16 at Example Animal Hospital."; S.clinicName = "Example Animal Hospital"; S.clinicPhone = "555-010-0199";
+    S.recheck = "Come back 10 to 14 days after discharge. Staples come out at this visit.";
+    S.rules = ["Cone (e-collar) stays on 24/7 until the recheck.", "No baths and no getting wet until after the recheck.", "Indoors on a soft bed. Leash walks only. No running, jumping or playing.", "Normal food is fine. Coax her to eat if needed."];
+    S.warnings = ["Incision red, swollen, leaking or opening", "Retching without bringing anything up, or a tight swollen belly", "Refusing food and water, or extreme tiredness"];
+    var SRC = {
+      Gabapentin: { sheet: { dose: "2 capsules", every_hours: 8, days: 10 }, bottle: { dose: "2 capsules", every_hours: 8, days: 10 } },
+      Carprofen: { sheet: { dose: "½ tablet", every_hours: 12, days: null }, bottle: { dose: "½ tablet", every_hours: 12, days: 3 } },
+      Cerenia: { sheet: { dose: "1 tablet", every_hours: 24, days: 4 }, bottle: { dose: "1 tablet", every_hours: 24, days: 4 } },
+      Trazodone: { sheet: null, bottle: { dose: "1.5 tablets", every_hours: 8, days: null } }
+    };
+    S.meds = [
+      mk({ name: "Gabapentin", strength: "100 mg capsule", dose: "2 capsules", every: 8, days: 10, purpose: "Pain medicine", first: f }),
+      mk({ name: "Carprofen", strength: "100 mg tablet", dose: "½ tablet", every: 12, days: 3, food: true, purpose: "Pain & inflammation medicine", first: f }),
+      mk({ name: "Cerenia", strength: "60 mg tablet", dose: "1 tablet", every: 24, days: 4, asNeeded: true, purpose: "Nausea & appetite medicine", first: f }),
+      mk({ name: "Trazodone", strength: "100 mg tablet", dose: "1.5 tablets", every: 8, days: null, asNeeded: true, purpose: "Anxiety medicine", first: f })
+    ];
+    S.meds.forEach(function (m) { m.src = SRC[m.name]; applyCross(m); });
+  }
+  function blank() {
+    S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.questions = ""; S.notified = {}; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.day = null; S.manual = true;
+    S.meds = [mk({ seen: ["manual"] })];
+  }
+
+  /* Photos + reading */
+  var canSample = true;
+  function shrink(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        var r = Math.min(1, 1500 / Math.max(img.width, img.height)), c = document.createElement("canvas");
+        c.width = Math.round(img.width * r); c.height = Math.round(img.height * r);
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        var du = c.toDataURL("image/jpeg", 0.82); c.toBlob(function (b) { URL.revokeObjectURL(url); b ? resolve({ blob: du, url: URL.createObjectURL(b) }) : reject(new Error("image")); }, "image/jpeg", 0.82);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("image")); };
+      img.src = url;
+    });
+  }
+  var PROMPT = "You are reading photos of a veterinary discharge sheet and prescription bottle labels. Transcribe only what is printed. Never guess or fill gaps from general knowledge. " +
+    "Return JSON only, no prose, in this shape: {\"patient\":string|null,\"summary\":string|null,\"clinic\":string|null,\"clinic_phone\":string|null," +
+    "\"meds\":[{\"name\":string,\"strength\":string|null,\"with_food\":boolean,\"as_needed\":boolean,\"purpose\":string|null,\"sheet\":{\"dose\":string|null,\"every_hours\":number|null,\"days\":number|null}|null,\"bottle\":{\"dose\":string|null,\"every_hours\":number|null,\"days\":number|null}|null,\"due_next\":{\"month\":number,\"day\":number,\"hour24\":number,\"minute\":number}|null,\"note\":string|null}]," +
+    "\"care_rules\":[string],\"warning_signs\":[string],\"recheck\":string|null}. " +
+    "summary: one short line on what the visit or procedure was, as printed. every_hours: if a range such as 8-12 hours is given, use the smaller number. days: the stated length, or null. " +
+    "sheet: what the discharge sheet says for this medication, or null if it is not on the sheet. bottle: what its bottle label says, or null if no bottle photo. Do not compare or merge them; copy each source separately. " +
+    "due_next: if a date and time is handwritten or printed next to this medication as when it is due next (for example due next 11/17 @ 8pm), give it; otherwise null. as_needed: true only if the paper says as needed or PRN. If the paper gives no number of days for a medication, days is null. purpose: plain words such as pain medicine or nausea medicine, only if printed or stated on the sheet. note: only if something is hard to read, else null. " +
+    "care_rules and warning_signs: only what is printed on the paperwork, as short sentences.";
+  async function readPhotos() {
+    if (!S.blobs.length || S.busy) return;
+    S.busy = true; S.error = ""; S.status = "Reading your paperwork. This can take a minute."; render();
+    try {
+      await ensureHousehold();
+      var rr = await fetch("/api/read", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ h: H, images: S.blobs }) });
+      var rj = await rr.json().catch(function () { return {}; });
+      if (!rr.ok || !rj.data) throw new Error(rj.error || "read");
+      var data = rj.data; S.planId = rnd(); S.synced = false;
+      S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.questions = ""; S.notified = {}; S.manual = false; S.day = null;
+      S.patient = data.patient || ""; S.summary = data.summary || ""; S.clinicName = data.clinic || ""; S.clinicPhone = data.clinic_phone || "";
+      S.rules = Array.isArray(data.care_rules) ? data.care_rules : []; S.warnings = Array.isArray(data.warning_signs) ? data.warning_signs : []; S.recheck = data.recheck || "";
+      var f = toInput(nextHour());
+      S.meds = (data.meds || []).map(function (m) {
+        var sh = m.sheet || null, bo = m.bottle || null, pick = bo || sh || {};
+        var dn = m.due_next && +m.due_next.month >= 1 && +m.due_next.day >= 1 ? new Date(new Date().getFullYear(), +m.due_next.month - 1, +m.due_next.day, +m.due_next.hour24 || 0, +m.due_next.minute || 0) : null;
+        if (dn && dn.getTime() < Date.now() - 180 * 864e5) dn.setFullYear(dn.getFullYear() + 1);
+        var med = mk({ name: m.name || "Unnamed medicine", strength: m.strength || "", dose: (sh && sh.dose) || pick.dose || "", every: pick.every_hours || (sh && sh.every_hours) || null, days: (bo && bo.days) || (sh && sh.days) || null,
+          food: !!m.with_food, asNeeded: !!m.as_needed, purpose: m.purpose || "", seen: [sh ? "sheet" : null, bo ? "bottle" : null].filter(Boolean), first: dn && !isNaN(dn.getTime()) ? toInput(dn) : f });
+        if (dn && !isNaN(dn.getTime())) med.dueNext = toInput(dn);
+        med.src = { sheet: sh, bottle: bo };
+        med.extra = (m.note || "") + (!med.every && !med.asNeeded ? " Interval not clear. Check the bottle." : "");
+        applyCross(med); return med;
+      });
+      S.status = ""; S.busy = false;
+      if (S.meds.some(function (m) { return m.note; }) || !S.meds.length) S.view = "check"; else S.view = "plan";
+    } catch (e) {
+      S.busy = false; S.status = "";
+      S.error = "Couldn't read those photos. Try clearer, well-lit ones, or use Enter by hand.";
+    }
+    save(); render();
+  }
+
+  /* Doses */
+  function doses() {
+    var out = [];
+    S.meds.forEach(function (m) {
+      if (m.asNeeded || !(m.every > 0) || !m.first) return;
+      var n = Math.floor(medDays(m) * 24 / m.every), st = new Date(m.first); if (isNaN(st.getTime())) return;
+      for (var i = 0; i < n; i++) out.push({ id: m.id + "-" + i, med: m, when: new Date(st.getTime() + i * m.every * 3600000) });
+    });
+    out.sort(function (a, b) { return a.when - b.when; });
+    return out;
+  }
+
+  /* Views */
+  function vIntake() {
+    function onFiles(e) {
+      var files = Array.prototype.slice.call(e.target.files || []); e.target.value = "";
+      S.status = "Preparing photos..."; S.error = ""; render();
+      (async function () {
+        try { for (var i = 0; i < files.length; i++) { var r = await shrink(files[i]); S.blobs.push(r.blob); S.photos.push(r.url); } S.status = ""; }
+        catch (err) { S.status = ""; S.error = "One of those files couldn't be read as a photo."; }
+        render();
+      })();
+    }
+    var cam = el("input", { type: "file", accept: "image/*", capture: "environment", style: "display:none", onchange: onFiles });
+    var lib = el("input", { type: "file", accept: "image/*", multiple: true, style: "display:none", onchange: onFiles });
+    var card = el("section", { class: "card" }, [
+      el("h2", { text: "Photograph the paperwork" }),
+      el("p", { class: "muted", text: "Take the discharge sheet first, then each pill bottle label. Pawsie reads the vet\'s notes, doses and warning signs straight from the paper." }),
+      el("button", { class: "btn big", type: "button", text: S.photos.length ? "Add another photo" : "Take a photo", onclick: function () { cam.click(); } }), cam,
+      el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "or choose from your photos", onclick: function () { lib.click(); } }), lib,
+      S.photos.length ? el("div", { class: "thumbs" }, S.photos.map(function (u, i) { return el("div", { class: "thumb" }, [el("img", { src: u, alt: "Photo " + (i + 1) }), el("button", { class: "x", type: "button", "aria-label": "Remove photo " + (i + 1), text: "×", onclick: function () { S.photos.splice(i, 1); S.blobs.splice(i, 1); render(); } })]); })) : null,
+
+      el("div", { class: "status" + (S.error ? " err" : ""), role: "status", text: S.error || S.status })
+    ]);
+    var go = el("button", { class: "btn big", type: "button", text: S.busy ? "Reading your paperwork..." : "Make my plan", onclick: readPhotos }); go.disabled = !(!S.busy && canSample && S.photos.length);
+    return el("div", { style: "display:flex;flex-direction:column;gap:12px" }, [card, S.photos.length ? go : null,
+      !canSample && S.photos.length ? el("p", { class: "small muted", text: "Photo reading isn't available right now. Use Enter by hand below." }) : null,
+      el("div", { class: "row" }, [
+        el("button", { class: "linkish", type: "button", text: "Enter by hand", onclick: function () { blank(); S.view = "check"; render(); } }),
+        el("button", { class: "linkish", type: "button", text: "See an example", onclick: function () { demoCase(); S.planId = rnd(); S.synced = false; S.view = "plan"; save(); render(); } })
+      ]),
+      el("p", { class: "foot", text: "Pawsie organizes your vet's instructions. It doesn't replace them or change a dose. When in doubt, call your clinic." })]);
+  }
+
+  function vCheck() {
+    var wrap = el("div", { style: "display:flex;flex-direction:column;gap:12px" });
+    var cont = el("button", { class: "btn big", type: "button", text: "Make my plan", onclick: function () { S.meds = S.meds.filter(function (m) { return m.name.trim(); }); if (!S.meds.length) return; if (!S.planId) S.planId = rnd(); S.synced = false; S.view = "plan"; S.day = null; save(); render(); } });
+    function gate() { cont.disabled = S.meds.some(function (m) { return m.note && !m.confirmed; }); }
+    wrap.appendChild(el("section", { class: "card" }, [
+      el("h2", { text: S.manual ? "Enter the medicines" : "Quick check" }),
+      el("p", { class: "muted", text: S.manual ? "Copy each medicine from the bottle label or discharge sheet." : "Compare anything marked below to the bottle, fix it if needed, then tick the box." }),
+      el("label", { class: "petname" }, ["Pet's name", el("input", { type: "text", value: S.patient || "", placeholder: "e.g. Maple", oninput: function (e) { S.patient = e.target.value; } })])
+    ]));
+    S.meds.forEach(function (m) {
+      if (!S.manual && !m.note) return;
+      var card = el("div", { class: "med", style: "--c:" + color(m) });
+      card.appendChild(el("h3", { text: m.name || "New medicine" }));
+      if (m.note) {
+        card.appendChild(el("div", { class: "flagnote", text: m.note }));
+        card.appendChild(el("label", { class: "check" }, [el("input", { type: "checkbox", checked: m.confirmed ? true : false, onchange: function (e) { m.confirmed = e.target.checked; gate(); } }), "I checked the bottle"]));
+      }
+      function field(label, key, type, wide) {
+        return el("label", { class: wide ? "wide" : "" }, [label, el("input", { type: type, value: m[key] == null ? "" : m[key], oninput: function (e) { m[key] = type === "number" ? (e.target.value === "" ? null : Number(e.target.value)) : e.target.value; } })]);
+      }
+      card.appendChild(el("div", { class: "fields" }, [field("Medicine name", "name", "text", true), field("Dose each time", "dose", "text", true), field("What it's for (optional)", "purpose", "text", true), field("Every (hours)", "every", "number"), field("For (days)", "days", "number"), field("First dose", "first", "datetime-local", true)]));
+      card.appendChild(el("label", { class: "check" }, [el("input", { type: "checkbox", checked: m.food ? true : false, onchange: function (e) { m.food = e.target.checked; } }), "Give with food"]));
+      card.appendChild(el("label", { class: "check" }, [el("input", { type: "checkbox", checked: m.asNeeded ? true : false, onchange: function (e) { m.asNeeded = e.target.checked; } }), "Only as needed (no fixed schedule)"]));
+      wrap.appendChild(card);
+    });
+    if (S.manual) wrap.appendChild(el("button", { class: "btn ghost", type: "button", text: "Add another medicine", onclick: function () { S.meds.push(mk({ seen: ["manual"] })); render(); } }));
+    wrap.appendChild(cont); gate();
+    wrap.appendChild(el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "Back", onclick: function () { S.view = S.restoredPlan ? "plan" : "intake"; render(); } }));
+    return wrap;
+  }
+
+  function gcalDate(d) { return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "T" + pad(d.getHours()) + pad(d.getMinutes()) + "00"; }
+  function gcalLink(m) {
+    var st = new Date(m.first), en = new Date(st.getTime() + 15 * 60000), n = Math.floor(medDays(m) * 24 / m.every);
+    return "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent((S.patient || "Pet") + ": " + m.name + " " + m.dose) + "&dates=" + gcalDate(st) + "/" + gcalDate(en) +
+      "&details=" + encodeURIComponent((m.purpose ? m.purpose + ". " : "") + (m.food ? "Give with food. " : "") + "Follow the bottle label.") + "&recur=" + encodeURIComponent("RRULE:FREQ=HOURLY;INTERVAL=" + m.every + ";COUNT=" + n);
+  }
+  function planText() {
+    var o = [(S.patient || "Pet") + "'s medication plan (Pawsie)"];
+    S.meds.forEach(function (m) { o.push("- " + m.name + (m.purpose ? " (" + m.purpose + ")" : "") + ": " + m.dose + (m.asNeeded ? ", only as needed" : (m.every ? ", every " + m.every + " hours" : "") + (m.days ? " for " + m.days + " days" : "")) + (m.food ? ", with food" : "")); });
+    if (S.clinicName) o.push("Questions: " + S.clinicName + (S.clinicPhone ? " " + S.clinicPhone : ""));
+    o.push("Follow the bottle label and your vet's instructions."); return o.join("\n");
+  }
+  var alertTimer = null;
+  /* ---------- household, sync and real alerts ---------- */
+  var HKEY = "pawsie-h";
+  var H = ""; try { H = localStorage.getItem(HKEY) || ""; } catch (e) {}
+  var cfg = null, pushState = "checking", pushCount = 0, pending = [], lastRev = -1, polling = false, testNote = "", myEndpoint = "";
+  function rnd() { return Math.random().toString(36).slice(2, 10) + Date.now().toString(36); }
+  function setH(h) { H = h; try { localStorage.setItem(HKEY, h); } catch (e) {} }
+  function jpost(path, body) { return fetch("/api/" + path, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).then(function (r) { return r.json().then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); }); }
+  function ensureHousehold() {
+    if (H) return Promise.resolve(H);
+    return jpost("household", {}).then(function (r) { if (r.ok && r.j.h) setH(r.j.h); return H; }, function () { return ""; });
+  }
+  function flush() {
+    if (!H || !pending.length || flush.busy) return;
+    flush.busy = true;
+    var o = pending[0];
+    jpost("op", { h: H, op: o }).then(function (r) {
+      flush.busy = false;
+      if (r.ok) { pending.shift(); lastRev = r.j.plan.rev; if (pending.length) flush(); }
+      else if (r.status === 404) { pending.length = 0; }
+    }, function () { flush.busy = false; });
+  }
+  function op(o) { pending.push(o); flush(); }
+  function planPayload() {
+    return { planId: S.planId, patient: S.patient, summary: S.summary, clinicName: S.clinicName, clinicPhone: S.clinicPhone, recheck: S.recheck, rules: S.rules, warnings: S.warnings,
+      meds: S.meds.map(function (m) { var c = {}; Object.keys(m).forEach(function (k) { if (k !== "src") c[k] = m[k]; }); c.firstTs = m.first ? new Date(m.first).getTime() : 0; c.dueTs = m.dueNext ? new Date(m.dueNext).getTime() : 0; return c; }) };
+  }
+  function syncPlan() {
+    if (!S.meds.length) return;
+    if (!S.planId) S.planId = rnd();
+    S.synced = true; save();
+    ensureHousehold().then(function (h) { if (!h) { S.synced = false; return; } op({ t: "setPlan", plan: planPayload(), tz: tz() }); });
+  }
+  function tz() { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || "America/New_York"; } catch (e) { return "America/New_York"; } }
+
+  function applyServer(p) {
+    lastRev = p.rev;
+    if (!p.meds || !p.meds.length) { if (S.meds.length && S.synced) { S.meds = []; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.patient = ""; S.given = {}; S.prn = {}; S.skipped = {}; S.rulesDone = {}; S.checkins = []; S.planId = ""; S.view = "intake"; } save(); return; }
+    var other = p.planId && p.planId !== S.planId;
+    if (other) {
+      S.planId = p.planId; S.patient = p.patient; S.summary = p.summary; S.clinicName = p.clinicName; S.clinicPhone = p.clinicPhone; S.recheck = p.recheck; S.rules = p.rules; S.warnings = p.warnings;
+      S.meds = p.meds.map(function (m) { m.confirmed = true; return m; }); S.day = null; S.synced = true;
+      if (S.view === "intake" || S.view === "check") S.view = "plan";
+    }
+    var photos = {}; S.checkins.forEach(function (c) { if (c.photo) photos[c.t] = c.photo; });
+    S.given = p.given || {}; S.skipped = p.skipped || {}; S.prn = p.prn || {}; S.rulesDone = p.rulesDone || {};
+    S.checkins = (p.checkins || []).map(function (c) { if (photos[c.t]) c.photo = photos[c.t]; return c; });
+    S.localOnly = (S.localOnly || []).filter(function (c) { return !S.checkins.some(function (x) { return x.t === c.t; }); });
+    S.localOnly.forEach(function (c) { S.checkins.push(c); });
+    if (S.view !== "summary" && typeof p.questions === "string") S.questions = p.questions;
+    save();
+  }
+  function poll() {
+    if (!H || polling || document.hidden || pending.length) return;
+    polling = true;
+    fetch("/api/plan?h=" + encodeURIComponent(H) + "&rev=" + lastRev, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
+      polling = false; if (!j || j.same || !j.plan) return;
+      var before = JSON.stringify([S.given, S.skipped, S.prn, S.rulesDone, S.checkins.length, S.meds.length, S.planId]);
+      applyServer(j.plan); pushCount = j.subs || 0;
+      var after = JSON.stringify([S.given, S.skipped, S.prn, S.rulesDone, S.checkins.length, S.meds.length, S.planId]);
+      if (before !== after && (S.view === "plan" || S.view === "summary" || S.view === "intake")) render();
+    }, function () { polling = false; });
+  }
+  setInterval(poll, 15000);
+  document.addEventListener("visibilitychange", function () { if (!document.hidden) { poll(); flush(); } });
+
+  /* join link: ?join=<household> */
+  (function () {
+    try { var u = new URL(location.href), j = u.searchParams.get("join"); if (j && /^[A-Za-z0-9_-]{20,48}$/.test(j)) { setH(j); lastRev = -1; u.searchParams.delete("join"); history.replaceState(null, "", u.pathname + (u.search || "")); S.joined = true; } } catch (e) {}
+  })();
+
+  /* push */
+  function isIOS() { return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); }
+  function standalone() { return window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true; }
+  function urlB64(b) { var p = "=".repeat((4 - b.length % 4) % 4), s = (b + p).replace(/-/g, "+").replace(/_/g, "/"), r = atob(s), a = new Uint8Array(r.length); for (var i = 0; i < r.length; i++) a[i] = r.charCodeAt(i); return a; }
+  function checkPush() {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) { pushState = isIOS() && !standalone() ? "ios-install" : "unsupported"; render(); return; }
+    if (Notification.permission === "denied") { pushState = "denied"; render(); return; }
+    navigator.serviceWorker.ready.then(function (reg) { return reg.pushManager.getSubscription(); }).then(function (sub) {
+      pushState = sub && Notification.permission === "granted" ? "on" : "off"; myEndpoint = sub ? sub.endpoint : "";
+      if (pushState === "on" && H) jpost("subscribe", { h: H, sub: sub.toJSON(), ua: navigator.userAgent.slice(0, 100) });
+      render();
+    }, function () { pushState = "unsupported"; render(); });
+  }
+  function enableAlerts() {
+    testNote = "";
+    Notification.requestPermission().then(function (perm) {
+      if (perm !== "granted") { pushState = perm === "denied" ? "denied" : "off"; render(); return; }
+      return Promise.all([navigator.serviceWorker.ready, ensureHousehold(), cfg ? cfg : fetch("/api/config").then(function (r) { return r.json(); })]).then(function (a) {
+        cfg = a[2]; if (!cfg.vapid) { testNote = "Alerts aren't set up on the server yet."; render(); return; }
+        return a[0].pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: urlB64(cfg.vapid) }).then(function (sub) {
+          myEndpoint = sub.endpoint;
+          return jpost("subscribe", { h: H, sub: sub.toJSON(), ua: navigator.userAgent.slice(0, 100) }).then(function (r) {
+            if (r.ok) { pushState = "on"; pushCount = r.j.devices; op({ t: "profile", tz: tz() }); if (S.meds.length) syncPlan(); } else testNote = "Couldn't turn alerts on. Try again.";
+            render();
+          });
+        });
+      });
+    }).catch(function () { testNote = "Couldn't turn alerts on. Try again."; render(); });
+  }
+  function sendTest() {
+    testNote = "Sending..."; render();
+    jpost("test", { h: H, endpoint: myEndpoint }).then(function (r) { testNote = r.ok && r.j.sent ? "Sent. It should appear in a few seconds." : "Couldn't send (" + ((r.j.errors || []).join(", ") || r.status) + "). Turn alerts off and on again."; render(); }, function () { testNote = "Couldn't reach the server."; render(); });
+  }
+  function shareLink() { return location.origin + "/?join=" + H; }
+  function alertsCard() {
+    var c = el("section", { class: "card noprint" });
+    if (pushState === "on") {
+      c.appendChild(el("div", { class: "row" }, [el("span", { class: "dotl l0", role: "img", "aria-label": "on" }), el("b", { text: "Alerts are on for this phone" })]));
+      c.appendChild(el("p", { class: "small muted", text: "Pawsie will alert you when a dose is due, even with the app closed." + (pushCount > 1 ? " " + pushCount + " phones are set up." : "") }));
+      c.appendChild(el("div", { class: "row" }, [el("button", { class: "btn ghost", type: "button", text: "Send a test alert", onclick: sendTest })]));
+    } else if (pushState === "ios-install") {
+      c.appendChild(el("h2", { text: "Get dose alerts on your iPhone" }));
+      c.appendChild(el("p", { class: "muted", text: "Apple only allows alerts for apps on the Home Screen. In Safari tap the Share button, then Add to Home Screen. Open Pawsie from there and tap Turn on alerts." }));
+    } else if (pushState === "denied") {
+      c.appendChild(el("h2", { text: "Alerts are blocked" }));
+      c.appendChild(el("p", { class: "muted", text: "Allow notifications for Pawsie in your phone or browser settings, then reload this page." }));
+    } else if (pushState === "unsupported") {
+      c.appendChild(el("h2", { text: "Alerts aren't available here" }));
+      c.appendChild(el("p", { class: "muted", text: "This browser can't send alerts. Try Chrome on Android, or Safari on iPhone after adding Pawsie to your Home Screen." }));
+    } else if (pushState === "checking") { return el("div", {}); }
+    else {
+      c.appendChild(el("h2", { text: "Get an alert when a dose is due" }));
+      c.appendChild(el("p", { class: "muted", text: "Pawsie sends a notification at each dose time, even when the app is closed." }));
+      c.appendChild(el("button", { class: "btn", type: "button", text: "Turn on alerts", onclick: enableAlerts }));
+    }
+    if (testNote) c.appendChild(el("p", { class: "small", role: "status", text: testNote }));
+    if (cfg && cfg.sms) {
+      var ph = el("input", { type: "tel", placeholder: "Mobile number for text alerts", "aria-label": "Mobile number", style: "width:100%;box-sizing:border-box;min-height:48px;border:1px solid var(--line);border-radius:10px;padding:0 12px;background:var(--bg);color:var(--ink);font:500 16px var(--body)" }); ph.value = S.phone || "";
+      c.appendChild(el("details", { class: "fold" }, [el("summary", { text: "Also text me" }), ph, el("button", { class: "btn ghost", type: "button", text: "Save number", onclick: function () { S.phone = ph.value; save(); op({ t: "profile", phone: ph.value }); } }), el("p", { class: "small muted", text: "By saving your number you agree to receive reminder texts for this plan. Message and data rates may apply." })]));
+    }
+    return c;
+  }
+  function familyCard() {
+    var c = el("section", { class: "card noprint" }, [el("h2", { text: "Share with family" }), el("p", { class: "muted", text: "Anyone with this link sees the same plan. Doses marked given and check-ins sync between phones, so nobody doubles up." })]);
+    var b = el("button", { class: "btn ghost", type: "button", text: "Send the family link", onclick: function () {
+      var l = shareLink(), t = "Join " + (S.patient || "our pet") + "'s care plan on Pawsie";
+      if (navigator.share) navigator.share({ title: "Pawsie", text: t, url: l }).catch(function () {});
+      else { try { navigator.clipboard.writeText(l).then(function () { b.textContent = "Link copied"; }); } catch (e) { window.prompt("Copy this link:", l); } }
+    } });
+    c.appendChild(b);
+    return c;
+  }
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(function () {});
+  fetch("/api/config").then(function (r) { return r.json(); }).then(function (j) { cfg = j; }, function () {});
+  var qT = null;
+  function toggle(id) { if (S.given[id]) delete S.given[id]; else S.given[id] = Date.now(); save(); op({ t: "given", id: id, ts: S.given[id] || null }); render(); }
+
+  function vPlan() {
+    var all = doses(), wrap = el("div", { style: "display:flex;flex-direction:column;gap:16px" });
+    var name = S.patient || "Your pet";
+    wrap.appendChild(el("header", {}, [
+      el("h1", { text: name + (S.patient ? "'s recovery plan" : " recovery plan") }),
+      S.summary ? el("p", { class: "sub", text: S.summary }) : null,
+      S.clinicName ? el("p", { class: "call" }, [el("span", { text: "Questions, any time:" }), S.clinicPhone ? el("b", { text: S.clinicPhone }) : el("b", { text: S.clinicName }), S.clinicPhone ? el("a", { href: "tel:" + S.clinicPhone.replace(/[^0-9+]/g, ""), text: "Call " + S.clinicName }) : null]) : null
+    ]));
+    var now = new Date(), nxt = null;
+    for (var i = 0; i < all.length; i++) if (!S.given[all[i].id] && !S.skipped[all[i].id] && all[i].when.getTime() >= now.getTime() - 3 * 3600000) { nxt = all[i]; break; }
+    var box = el("section", { class: "card next", "aria-live": "polite" });
+    function paintNext() {
+      box.innerHTML = "";
+      if (!nxt) { box.style.removeProperty("--c"); box.appendChild(el("div", { class: "label", text: "Next dose" })); box.appendChild(el("div", { class: "what", text: all.length ? name + " is all caught up." : "No timed doses." })); box.appendChild(el("div", { class: "how", text: "Check the recheck below and call the clinic if the plan changes." })); return; }
+      var diff = nxt.when - new Date(), txt = diff > 0 ? "in " + hrs(diff) : "due now";
+      box.style.setProperty("--c", color(nxt.med));
+      box.appendChild(el("div", { class: "label", text: "Next dose" }));
+      box.appendChild(el("div", { class: "when", text: txt }));
+      box.appendChild(el("div", { class: "what" }, [nxt.med.name + " ", nxt.med.purpose ? el("span", { style: "color:var(--c)", text: "(" + nxt.med.purpose.toLowerCase() + ")" }) : null]));
+      box.appendChild(el("div", { class: "how", style: "color:var(--ink);font-weight:600", text: nxt.med.dose }));
+      box.appendChild(el("div", { class: "how", text: "Scheduled " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + (nxt.med.food ? ". Give with food." : ".") }));
+      box.appendChild(el("button", { type: "button", text: "Mark as given", onclick: function () { toggle(nxt.id); } }));
+    }
+    paintNext(); wrap.appendChild(box);
+    wrap.appendChild(alertsCard());
+    if (all.length) {
+      var n = all.filter(function (d) { return S.given[d.id]; }).length, p = el("div", { class: "progress", role: "progressbar", "aria-valuemin": "0", "aria-valuemax": String(all.length), "aria-valuenow": String(n) }); p.appendChild(el("i", { style: "width:" + Math.round(100 * n / all.length) + "%" }));
+      wrap.appendChild(el("div", { class: "card" }, [el("div", { class: "row", style: "justify-content:space-between" }, [el("b", { text: n + " of " + all.length + " doses given" }), el("span", { class: "small muted", text: all.length - n ? (all.length - n) + " to go" : "All done" })]), p]));
+    }
+    wrap.appendChild(checkinCard());
+    /* day view */
+    var keys = []; all.forEach(function (d) { var k = dayKey(d.when); if (keys.indexOf(k) < 0) keys.push(k); });
+    if (keys.length) {
+      if (S.day == null || S.day >= keys.length) { var t = keys.indexOf(dayKey(now)); S.day = t >= 0 ? t : 0; }
+      var cur = keys[S.day], dd = all.filter(function (d) { return dayKey(d.when) === cur; }), dateObj = dd[0].when;
+      var title = el("div", { class: "title" }, [el("h2", { text: fmtDay(dateObj) }), el("span", { text: cur === dayKey(now) ? "Today" : "Day " + (S.day + 1) + " of " + keys.length })]);
+      wrap.appendChild(el("section", { "aria-label": "Daily schedule", style: "display:flex;flex-direction:column;gap:12px" }, [
+        el("div", { class: "daynav" }, [el("button", { class: "navbtn", type: "button", "aria-label": "Previous day", disabled: S.day === 0 ? true : false, text: "←", onclick: function () { S.day--; render(); } }), title, el("button", { class: "navbtn", type: "button", "aria-label": "Next day", disabled: S.day === keys.length - 1 ? true : false, text: "→", onclick: function () { S.day++; render(); } })]),
+        el("ul", { class: "doses" }, dd.map(function (d) {
+          var given = S.given[d.id], h = d.when.getHours(), part = h === 0 ? "MIDNIGHT" : h < 12 ? "MORNING" : h < 18 ? "AFTERNOON" : "EVENING";
+          var li = el("li", { class: "dose" + (given ? " done" : ""), style: "--c:" + color(d.med) });
+          li.appendChild(el("div", { class: "time" }, [fmtTime(d.when), el("small", { text: part })]));
+          li.appendChild(el("div", { class: "body" }, [
+            d.med.purpose ? el("div", { class: "kind", text: d.med.purpose }) : null, el("div", { class: "name" }, [el("span", { text: d.med.name })]),
+            el("div", { class: "amount", text: d.med.dose }), d.med.food ? el("div", { class: "note", text: "Give with food." }) : null,
+            S.skipped[d.id] ? el("div", { class: "note", text: "Skipped." }) : null,
+            !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("div", { class: "missed", text: "This dose may have been missed. Don't double up. Ask your clinic if unsure." }) : null,
+            S.skipped[d.id] ? el("button", { class: "givebtn", type: "button", "aria-pressed": "true", text: "Undo skip", onclick: function () { delete S.skipped[d.id]; save(); op({ t: "skip", id: d.id, ts: null }); render(); } }) : el("button", { class: "givebtn", type: "button", "aria-pressed": given ? "true" : "false", text: given ? "Given at " + fmtTime(new Date(given)) + " (tap to undo)" : "Mark as given", onclick: function () { toggle(d.id); } }),
+            !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "Mark as skipped", onclick: function () { S.skipped[d.id] = Date.now(); save(); op({ t: "skip", id: d.id, ts: S.skipped[d.id] }); render(); } }) : null]));
+          return li;
+        }))
+      ]));
+    }
+    /* as needed */
+    S.meds.filter(function (m) { return m.asNeeded; }).forEach(function (m) {
+      var log = S.prn[m.id] = S.prn[m.id] || [], last = log.length ? log[log.length - 1] : null, gap = (m.every || 0) * 3600000, wait = last && gap ? last + gap - Date.now() : 0;
+      wrap.appendChild(el("section", { class: "card", style: "border-left:6px solid " + color(m) }, [
+        el("h2", { text: m.name + (m.purpose ? " (" + m.purpose.toLowerCase() + ")" : "") }),
+        el("p", {}, [el("b", { text: m.dose }), " by mouth" + (m.every ? ", no sooner than every " + m.every + " hours" : "") + ", only as needed." + (m.food ? " Give with food." : "") + (m.days ? " Bottle length: " + m.days + " days." : "")]),
+        m.dueNext && !last ? el("p", { class: "datebox" }, [el("b", { text: "Due next: " + fmtDay(new Date(m.dueNext)) + " at " + fmtTime(new Date(m.dueNext)) }), el("span", { class: "small muted", text: "Written on your paperwork. Give only if it's needed." })]) : null,
+        el("p", { class: "foot", text: last ? "Last given " + fmtTime(new Date(last)) + " on " + fmtDay(new Date(last)) + (wait > 0 ? ". Next allowed in " + hrs(wait) + "." : ".") : "Not given yet." }),
+        log.length ? el("div", { class: "logtimes" }, [el("b", { class: "small", text: "Given:" })].concat(log.slice(-6).map(function (t, i, arr) { var idx = log.length - arr.length + i; return el("span", { class: "logchip" }, [fmtDay(new Date(t)).split(",")[0] + " " + fmtTime(new Date(t)), el("button", { type: "button", "aria-label": "Remove this entry", text: "×", onclick: function () { var rt = log[idx]; log.splice(idx, 1); save(); op({ t: "prn", medId: m.id, remove: rt }); render(); } })]); }))) : null,
+        el("button", { class: "givebtn", type: "button", disabled: wait > 0 ? true : false, text: wait > 0 ? "Wait " + hrs(wait) : "Log a dose now", onclick: function () { var tn = Date.now(); log.push(tn); save(); op({ t: "prn", medId: m.id, add: tn }); render(); } })
+      ]));
+    });
+    /* how times were set */
+    var fixed = S.meds.filter(function (m) { return !m.asNeeded && m.every > 0 && m.first; });
+    if (fixed.length) wrap.appendChild(el("section", { class: "card" }, [el("h2", { text: "How the times were set" }), el("dl", { class: "every" }, fixed.reduce(function (acc, m) {
+      var st = new Date(m.first), n = Math.floor(medDays(m) * 24 / m.every), last = new Date(st.getTime() + (n - 1) * m.every * 3600000);
+      acc.push(el("dt", { text: m.name })); acc.push(el("dd", { text: (m.purpose ? m.purpose + ". " : "") + "Every " + m.every + " hours, starting " + fmtTime(st) + (m.days > 0 ? ". Runs " + m.days + " days: " + n + " doses. Last dose " + fmtDay(last) + " at " + fmtTime(last) + "." : ". Your paper gives no end date, so Pawsie shows " + medDays(m) + " days. Keep going until your vet says stop.") })); return acc;
+    }, [])), el("p", { class: "foot", text: "Doses, intervals and lengths come from your discharge sheet and bottle labels. If you still need a medicine when it runs out, call your clinic." })]));
+    /* warnings */
+    var flagged = S.meds.filter(function (m) { return m.note; });
+    if (S.warnings.length || flagged.length) wrap.appendChild(el("section", { class: "card stop" }, [el("h2", { text: "Call " + (S.clinicName || "your clinic") + " about" }), S.warnings.length ? el("ul", { class: "plain" }, S.warnings.map(function (w) { return el("li", { text: w }); })) : null,
+      flagged.length ? el("p", { class: "small", text: "Also confirmed with you earlier: " + flagged.map(function (m) { return m.name; }).join(", ") + ". Ask the clinic if anything is still unclear." }) : null]));
+    if (S.rules.length) { var tk = dayKey(new Date()), rc = el("section", { class: "card" }, [el("h2", { text: "Vet's instructions, every day" }), el("p", { class: "small muted", text: "Tap each one as you follow it. It resets every morning." })]);
+      S.rules.forEach(function (r, i) { var key = tk + "|" + i, on = !!S.rulesDone[key];
+        rc.appendChild(el("button", { class: "rule" + (on ? " on" : ""), type: "button", "aria-pressed": on ? "true" : "false", onclick: function () { if (on) delete S.rulesDone[key]; else S.rulesDone[key] = Date.now(); save(); op({ t: "rule", key: key, ts: S.rulesDone[key] || null }); render(); } }, [el("span", { class: "box", "aria-hidden": "true", text: on ? "✓" : "" }), el("span", { text: r })])); });
+      wrap.appendChild(rc); }
+    if (S.recheck) { var rk = el("section", { class: "card" }, [el("h2", { text: "Vet's recheck notes" }), el("p", { text: S.recheck })]);
+      var rm = S.recheck.match(/(\d+)\s*(?:-|–|to)\s*(\d+)\s*days?/i);
+      if (rm) { var d0 = new Date(), a1 = new Date(d0.getTime() + (+rm[1]) * 864e5), a2 = new Date(d0.getTime() + (+rm[2]) * 864e5);
+        rk.appendChild(el("div", { class: "datebox" }, [el("b", { text: "About " + fmtDay(a1) + " to " + fmtDay(a2) }), el("span", { class: "small muted", text: "Counted from today. Call " + (S.clinicName || "your clinic") + " to book the exact time." })]));
+        var cs = a1.getFullYear() + pad(a1.getMonth() + 1) + pad(a1.getDate()), ce = new Date(a2.getTime() + 864e5);
+        rk.appendChild(el("a", { class: "btn ghost linkbtn noprint", target: "_blank", rel: "noopener", href: "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent((S.patient || "Pet") + " recheck") + "&dates=" + cs + "/" + ce.getFullYear() + pad(ce.getMonth() + 1) + pad(ce.getDate()) + "&details=" + encodeURIComponent("Call the clinic to book. " + S.recheck), text: "Add recheck window to calendar" })); }
+      wrap.appendChild(rk); }
+    wrap.appendChild(familyCard());
+    wrap.appendChild(el("section", { class: "card noprint" }, [el("h2", { text: "For the vet visit" }), el("p", { class: "muted", text: "Doses given, daily check-ins and incision photos on one page to show or send at the recheck." }),
+      el("button", { class: "btn ghost", type: "button", text: "Open vet summary", onclick: function () { S.view = "summary"; render(); window.scrollTo(0, 0); } })]));
+    /* reminders */
+    var rem = el("details", { class: "card fold noprint" }, [el("summary", { text: "Calendar backup" }), el("p", { class: "small muted", text: "Optional backup: calendar alarms on this phone. Tap each medicine once." })]);
+    fixed.forEach(function (m) { rem.appendChild(el("a", { class: "btn ghost linkbtn", href: gcalLink(m), target: "_blank", rel: "noopener", text: "Add " + m.name + " to Google Calendar" })); });
+    wrap.appendChild(rem);
+    var more = el("details", { class: "card fold noprint" }, [el("summary", { text: "Share, print or edit" })]);
+    var cb = el("button", { class: "btn ghost", type: "button", text: "Copy the plan as text", onclick: function () { try { navigator.clipboard.writeText(planText()).then(function () { cb.textContent = "Copied"; }, function () { window.prompt("Copy this plan:", planText()); }); } catch (e) { window.prompt("Copy this plan:", planText()); } } });
+    more.appendChild(cb);
+    more.appendChild(el("a", { class: "btn ghost linkbtn", href: "sms:?&body=" + encodeURIComponent(planText()), text: "Text it to someone" }));
+    more.appendChild(el("button", { class: "btn ghost", type: "button", text: "Print or save as PDF", onclick: function () { window.print(); } }));
+    more.appendChild(el("button", { class: "btn ghost", type: "button", text: "Edit medicines", onclick: function () { S.manual = true; S.restoredPlan = true; S.view = "check"; render(); } }));
+    more.appendChild(el("button", { class: "btn ghost", type: "button", style: "color:var(--danger);border-color:var(--danger)", text: "Start over", onclick: function () { if (window.confirm("Clear this plan and stop its alerts for everyone in the family?")) { op({ t: "clear" }); S.planId = ""; try { localStorage.removeItem(KEY); } catch (e) {} S.meds = []; S.rules = []; S.warnings = []; S.recheck = ""; S.summary = ""; S.patient = ""; S.given = {}; S.prn = {}; S.photos = []; S.blobs = []; S.view = "intake"; render(); } } }));
+    wrap.appendChild(more);
+    wrap.appendChild(el("p", { class: "foot", text: "Built from your discharge paperwork and bottle labels. If anything here differs from the paper, follow the paper and call your clinic. Checkmarks sync to everyone you share the family link with." }));
+    clearInterval(window.__t); if (nxt) window.__t = setInterval(paintNext, 30000);
+    return wrap;
+  }
+
+  /* Daily check-in */
+  var CQ = [
+    { k: "eat", q: "Eating", o: [["ok", "Normal"], ["low", "Less than usual"], ["none", "Not eating"]] },
+    { k: "water", q: "Drinking", o: [["ok", "Drinking"], ["bad", "Not drinking"]] },
+    { k: "energy", q: "Energy", o: [["ok", "Normal"], ["low", "Sleepy"], ["bad", "Very weak"]] },
+    { k: "vomit", q: "Vomiting", o: [["ok", "None"], ["low", "Vomited"], ["bad", "Retching, nothing comes up"]] },
+    { k: "stool", q: "Stool", o: [["ok", "Normal"], ["none", "Not yet"], ["low", "Loose"], ["bad", "Dark or tarry"]] },
+    { k: "pain", q: "Comfort", o: [["ok", "Comfortable"], ["low", "Restless or whining"], ["bad", "Seems in severe pain"]] },
+    { k: "cut", q: "Incision", o: [["ok", "Looks fine"], ["bad", "Red, swollen, leaking or open"]] }
+  ];
+  function sev(k, v) { if (!v || v === "ok" || (k === "stool" && v === "none")) return 0; if (v === "low") return 1; if (v === "bad" || (k === "eat" && v === "none")) return 2; return 0; }
+  function level(a) { var m = 0; CQ.forEach(function (q) { m = Math.max(m, sev(q.k, a[q.k])); }); return m; }
+  function label(k, v) { var q = CQ.filter(function (x) { return x.k === k; })[0]; var o = q && q.o.filter(function (x) { return x[0] === v; })[0]; return o ? o[1] : ""; }
+  function issues(a, min) { return CQ.filter(function (q) { return sev(q.k, a[q.k]) >= min; }).map(function (q) { return q.q + ": " + label(q.k, a[q.k]); }); }
+  function dot(l) { return el("span", { class: "dotl l" + l, role: "img", "aria-label": l === 2 ? "call the clinic" : l === 1 ? "keep an eye" : "good" }); }
+
+  function checkinCard() {
+    var today = S.checkins.filter(function (c) { return dayKey(new Date(c.t)) === dayKey(new Date()); }), last = today[today.length - 1];
+    var c = el("section", { class: "card noprint" }, [el("h2", { text: "Daily check-in" })]);
+    if (last) {
+      var l = level(last.a);
+      c.appendChild(el("div", { class: "row" }, [dot(l), el("span", { text: "Done at " + fmtTime(new Date(last.t)) + ": " + (l === 2 ? "call the clinic" : l === 1 ? "keep an eye on it" : "good day") })]));
+      c.appendChild(el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "Do another check-in", onclick: function () { S.draft = {}; S.view = "checkin"; render(); window.scrollTo(0, 0); } }));
+    } else {
+      c.appendChild(el("p", { class: "muted", text: "Twenty seconds. Tap how " + (S.patient || "your pet") + " is doing and Pawsie tells you if it matches a warning sign." }));
+      c.appendChild(el("button", { class: "btn", type: "button", text: "Start today's check-in", onclick: function () { S.draft = {}; S.view = "checkin"; render(); window.scrollTo(0, 0); } }));
+    }
+    if (S.checkins.length > 1) { var dots = el("div", { class: "row", style: "gap:6px" }, [el("span", { class: "small muted", text: "Recent:" })]); S.checkins.slice(-10).forEach(function (x) { dots.appendChild(dot(level(x.a))); }); c.appendChild(dots); }
+    return c;
+  }
+  function smallPhoto(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () { var r = Math.min(1, 480 / Math.max(img.width, img.height)), cv = document.createElement("canvas"); cv.width = Math.round(img.width * r); cv.height = Math.round(img.height * r); cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height); URL.revokeObjectURL(url); resolve(cv.toDataURL("image/jpeg", 0.7)); };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("img")); }; img.src = url;
+    });
+  }
+  function vCheckin() {
+    var w = el("div", { style: "display:flex;flex-direction:column;gap:12px" });
+    w.appendChild(el("header", {}, [el("h1", { text: "How is " + (S.patient || "your pet") + " today?" }), el("p", { class: "sub", text: "Tap one answer per row. Skip a row if you're not sure." })]));
+    CQ.forEach(function (q) {
+      var group = el("div", { class: "chips", role: "group", "aria-label": q.q });
+      q.o.forEach(function (o) {
+        var on = S.draft[q.k] === o[0];
+        group.appendChild(el("button", { class: "chip" + (on ? " on" : ""), type: "button", "aria-pressed": on ? "true" : "false", text: o[1], onclick: function () { S.draft[q.k] = on ? null : o[0]; render(); } }));
+      });
+      w.appendChild(el("section", { class: "card" }, [el("h2", { text: q.q }), group]));
+    });
+    var note = el("textarea", { rows: "2", placeholder: "Anything else? (optional)", oninput: function (e) { S.draft.note = e.target.value; } }); note.value = S.draft.note || "";
+    var pin = el("input", { type: "file", accept: "image/*", capture: "environment", style: "display:none", onchange: function (e) { var f = e.target.files && e.target.files[0]; e.target.value = ""; if (!f) return; smallPhoto(f).then(function (d) { S.draft.photo = d; render(); }, function () {}); } });
+    w.appendChild(el("section", { class: "card" }, [el("h2", { text: "Incision photo (optional)" }), S.draft.photo ? el("img", { src: S.draft.photo, alt: "Incision photo", style: "max-width:160px;border-radius:10px;border:1px solid var(--line)" }) : null,
+      el("button", { class: "btn ghost", type: "button", text: S.draft.photo ? "Retake photo" : "Take a photo", onclick: function () { pin.click(); } }), pin, note]));
+    w.appendChild(el("button", { class: "btn", type: "button", disabled: CQ.some(function (q) { return S.draft[q.k]; }) ? false : true, text: "Save check-in", onclick: function () {
+      var a = {}; CQ.forEach(function (q) { if (S.draft[q.k]) a[q.k] = S.draft[q.k]; });
+      var entry = { t: Date.now(), a: a, note: S.draft.note || "" }; if (S.draft.photo && S.checkins.filter(function (c) { return c.photo; }).length < 8) entry.photo = S.draft.photo;
+      S.checkins.push(entry); if (entry.photo) S.localOnly.push(entry); S.lastEntry = entry; S.draft = {}; save(); op({ t: "checkin", entry: { t: entry.t, a: entry.a, note: entry.note } }); S.view = "result"; render(); window.scrollTo(0, 0);
+    } }));
+    w.appendChild(el("button", { class: "linkish", type: "button", style: "align-self:flex-start", text: "Back to the plan", onclick: function () { S.view = "plan"; render(); } }));
+    return w;
+  }
+  function vResult() {
+    var e = S.lastEntry || S.checkins[S.checkins.length - 1]; if (!e) { S.view = "plan"; return vPlan(); }
+    var l = level(e.a), w = el("div", { style: "display:flex;flex-direction:column;gap:12px" });
+    var tel = S.clinicPhone ? "tel:" + S.clinicPhone.replace(/[^0-9+]/g, "") : null, who = S.patient || "your pet";
+    if (l === 2) {
+      w.appendChild(el("section", { class: "card stop" }, [el("h1", { style: "color:var(--danger)", text: "Call " + (S.clinicName || "your clinic") + " now" }), el("p", { text: "These answers match warning signs:" }), el("ul", { class: "plain" }, issues(e.a, 2).map(function (x) { return el("li", { text: x }); })),
+        tel ? el("a", { class: "btn callbtn linkbtn", href: tel, text: "Call " + (S.clinicPhone || S.clinicName) }) : null,
+        el("p", { class: "small", text: "If " + who + " has collapsed, is struggling to breathe, or the belly is tight and swollen, go to the nearest emergency vet now." })]));
+    } else if (l === 1) {
+      w.appendChild(el("section", { class: "card", style: "border:2px solid var(--amber)" }, [el("h1", { text: "Keep an eye on it" }), el("ul", { class: "plain" }, issues(e.a, 1).map(function (x) { return el("li", { text: x }); })), el("p", { class: "muted", text: "Common in recovery, but call " + (S.clinicName || "your clinic") + " if it continues or gets worse. Saved for your vet summary." }), tel ? el("a", { class: "btn ghost linkbtn", href: tel, text: "Call anyway" }) : null]));
+    } else {
+      w.appendChild(el("section", { class: "card", style: "border:2px solid var(--c3)" }, [el("h1", { text: "A good day" }), el("p", { class: "muted", text: "Nothing here matches a warning sign. Saved for your vet summary." })]));
+    }
+    w.appendChild(el("p", { class: "foot", text: "Pawsie doesn't diagnose. It compares your answers with common warning signs. If you're worried about anything, call your clinic." }));
+    w.appendChild(el("button", { class: "btn", type: "button", text: "Back to the plan", onclick: function () { S.view = "plan"; render(); window.scrollTo(0, 0); } }));
+    return w;
+  }
+
+  /* Vet summary */
+  function adherence() {
+    var now = Date.now(), all = doses();
+    return S.meds.map(function (m) {
+      if (m.asNeeded) return { m: m, prn: (S.prn[m.id] || []).length };
+      var d = all.filter(function (x) { return x.med.id === m.id; }), due = d.filter(function (x) { return x.when.getTime() <= now; });
+      var g = due.filter(function (x) { return S.given[x.id]; }).length, sk = due.filter(function (x) { return S.skipped[x.id]; }).length;
+      return { m: m, total: d.length, due: due.length, given: g, skipped: sk, missed: due.length - g - sk };
+    });
+  }
+  function adhText(r) { return r.prn != null ? "As needed, " + r.prn + " dose" + (r.prn === 1 ? "" : "s") + " logged" : r.given + " of " + r.due + " doses given so far (" + r.total + " in the plan)" + (r.skipped ? ", " + r.skipped + " skipped" : "") + (r.missed ? ", " + r.missed + " missed" : ""); }
+  function summaryText() {
+    var o = [(S.patient || "Pet") + " recovery summary (Pawsie)"]; if (S.summary) o.push(S.summary); o.push("", "Medicines:");
+    adherence().forEach(function (r) { o.push(r.m.name + ": " + adhText(r)); });
+    o.push("", "Daily check-ins:"); if (!S.checkins.length) o.push("None yet");
+    S.checkins.forEach(function (c) { var l = level(c.a); o.push(fmtDay(new Date(c.t)) + " " + fmtTime(new Date(c.t)) + " [" + (l === 2 ? "CALL" : l === 1 ? "WATCH" : "good") + "] " + CQ.filter(function (q) { return c.a[q.k]; }).map(function (q) { return q.q + " " + label(q.k, c.a[q.k]); }).join("; ") + (c.note ? ". Note: " + c.note : "")); });
+    if (S.questions) o.push("", "Questions for the vet: " + S.questions);
+    return o.join("\n");
+  }
+  function vSummary() {
+    var w = el("div", { style: "display:flex;flex-direction:column;gap:12px" });
+    w.appendChild(el("header", {}, [el("h1", { text: (S.patient || "Your pet") + "'s recovery summary" }), S.summary ? el("p", { class: "sub", text: S.summary }) : null, el("p", { class: "sub", text: "Made " + fmtDay(new Date()) + " with Pawsie" })]));
+    w.appendChild(el("section", { class: "card" }, [el("h2", { text: "Medicines" }), el("dl", { class: "every" }, adherence().reduce(function (a, r) { a.push(el("dt", { text: r.m.name })); a.push(el("dd", { text: adhText(r) + "." })); return a; }, []))]));
+    var ci = el("section", { class: "card" }, [el("h2", { text: "Daily check-ins" })]);
+    if (!S.checkins.length) ci.appendChild(el("p", { class: "muted", text: "No check-ins yet." }));
+    S.checkins.slice().reverse().forEach(function (c) {
+      var l = level(c.a), parts = CQ.filter(function (q) { return c.a[q.k]; }).map(function (q) { return q.q + ": " + label(q.k, c.a[q.k]); });
+      ci.appendChild(el("div", { class: "entry" }, [el("div", { class: "row" }, [dot(l), el("b", { text: fmtDay(new Date(c.t)) + " " + fmtTime(new Date(c.t)) })]), el("p", { class: "small muted", text: parts.join(" · ") + (c.note ? " · Note: " + c.note : "") }), c.photo ? el("img", { src: c.photo, alt: "Incision photo", style: "max-width:140px;border-radius:8px;border:1px solid var(--line)" }) : null]));
+    });
+    w.appendChild(ci);
+    var qn = el("textarea", { rows: "3", placeholder: "Questions to ask at the recheck", oninput: function (e) { S.questions = e.target.value; save(); clearTimeout(qT); qT = setTimeout(function () { op({ t: "questions", v: S.questions }); }, 800); } }); qn.value = S.questions || "";
+    w.appendChild(el("section", { class: "card" }, [el("h2", { text: "Questions for the vet" }), qn]));
+    var cb = el("button", { class: "btn ghost", type: "button", text: "Copy as text", onclick: function () { try { navigator.clipboard.writeText(summaryText()).then(function () { cb.textContent = "Copied"; }, function () { window.prompt("Copy:", summaryText()); }); } catch (e) { window.prompt("Copy:", summaryText()); } } });
+    w.appendChild(el("div", { class: "row noprint" }, [cb, el("a", { class: "btn ghost linkbtn", href: "sms:?&body=" + encodeURIComponent(summaryText()), text: "Text it" }), el("button", { class: "btn ghost", type: "button", text: "Print or save PDF", onclick: function () { window.print(); } })]));
+    w.appendChild(el("button", { class: "linkish noprint", type: "button", style: "align-self:flex-start", text: "Back to the plan", onclick: function () { S.view = "plan"; render(); window.scrollTo(0, 0); } }));
+    w.appendChild(el("p", { class: "foot", text: "Records what the owner reports. Pawsie doesn't diagnose or replace your veterinarian." }));
+    return w;
+  }
+
+  function render() {
+    if (S.view === "plan" && S.meds.length && !S.synced) syncPlan();
+    var v = document.getElementById("view"); v.innerHTML = "";
+    v.appendChild(S.view === "plan" && S.meds.length ? vPlan() : S.view === "check" ? vCheck() : S.view === "checkin" ? vCheckin() : S.view === "result" ? vResult() : S.view === "summary" ? vSummary() : vIntake());
+  }
+  render();
+  checkPush();
+  if (H) { poll(); } else ensureHousehold();
+})();
+</script>
+</body>
+</html>
