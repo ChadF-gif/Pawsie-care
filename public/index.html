@@ -173,6 +173,13 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
   function fmtDay(d) { return WD[d.getDay()] + ", " + MO[d.getMonth()] + " " + d.getDate(); }
   function dayKey(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
   function medDays(m) { return m.days > 0 ? m.days : 14; }
+  function gridNext(every) {
+    var e = +every, d = new Date();
+    if (!(e > 0 && e < 24 && 24 % e === 0)) return nextHour();
+    d.setMinutes(0, 0, 0); d.setHours(d.getHours() + 1);
+    while (d.getHours() % e !== 0) d.setHours(d.getHours() + 1);
+    return d;
+  }
   function nextHour() { var d = new Date(); d.setMinutes(0, 0, 0); d.setHours(d.getHours() + 1); return d; }
   function hrs(ms) { var m = Math.max(0, Math.round(ms / 60000)), h = Math.floor(m / 60); return (h ? h + "h " : "") + (m % 60) + "m"; }
   var uid = 0;
@@ -210,8 +217,8 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       Trazodone: { sheet: null, bottle: { dose: "1.5 tablets", every_hours: 8, days: null } }
     };
     S.meds = [
-      mk({ name: "Gabapentin", strength: "100 mg capsule", dose: "2 capsules", every: 8, days: 10, purpose: "Pain medicine", first: f }),
-      mk({ name: "Carprofen", strength: "100 mg tablet", dose: "½ tablet", every: 12, days: 3, food: true, purpose: "Pain & inflammation medicine", first: f }),
+      mk({ name: "Gabapentin", strength: "100 mg capsule", dose: "2 capsules", every: 8, days: 10, purpose: "Pain medicine", first: toInput(gridNext(8)) }),
+      mk({ name: "Carprofen", strength: "100 mg tablet", dose: "½ tablet", every: 12, days: 3, food: true, purpose: "Pain & inflammation medicine", first: toInput(gridNext(12)) }),
       mk({ name: "Cerenia", strength: "60 mg tablet", dose: "1 tablet", every: 24, days: 4, asNeeded: true, purpose: "Nausea & appetite medicine", first: f }),
       mk({ name: "Trazodone", strength: "100 mg tablet", dose: "1.5 tablets", every: 8, days: null, asNeeded: true, purpose: "Anxiety medicine", first: f })
     ];
@@ -264,7 +271,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
         var dn = m.due_next && +m.due_next.month >= 1 && +m.due_next.day >= 1 ? new Date(new Date().getFullYear(), +m.due_next.month - 1, +m.due_next.day, +m.due_next.hour24 || 0, +m.due_next.minute || 0) : null;
         if (dn && dn.getTime() < Date.now() - 180 * 864e5) dn.setFullYear(dn.getFullYear() + 1);
         var med = mk({ name: m.name || "Unnamed medicine", strength: m.strength || "", dose: (sh && sh.dose) || pick.dose || "", every: pick.every_hours || (sh && sh.every_hours) || null, days: (bo && bo.days) || (sh && sh.days) || null,
-          food: !!m.with_food, asNeeded: !!m.as_needed, purpose: m.purpose || "", seen: [sh ? "sheet" : null, bo ? "bottle" : null].filter(Boolean), first: dn && !isNaN(dn.getTime()) ? toInput(dn) : f });
+          food: !!m.with_food, asNeeded: !!m.as_needed, purpose: m.purpose || "", seen: [sh ? "sheet" : null, bo ? "bottle" : null].filter(Boolean), first: dn && !isNaN(dn.getTime()) ? toInput(dn) : toInput(gridNext(pick.every_hours || (sh && sh.every_hours) || 0)) });
         if (dn && !isNaN(dn.getTime())) med.dueNext = toInput(dn);
         med.src = { sheet: sh, bottle: bo };
         med.extra = (m.note || "") + (!med.every && !med.asNeeded ? " Interval not clear. Check the bottle." : "");
@@ -512,6 +519,19 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(function () {});
   fetch("/api/config").then(function (r) { return r.json(); }).then(function (j) { cfg = j; }, function () {});
   var qT = null;
+  function startEditor(m) {
+    var inp = el("input", { type: "datetime-local", value: m.first, style: "min-height:44px;border:1px solid var(--line);border-radius:8px;padding:0 10px;background:var(--bg);color:var(--ink);font:500 16px var(--body);width:100%" });
+    return el("details", { class: "noprint" }, [el("summary", { style: "font:600 14px var(--body);color:var(--accent);cursor:pointer;min-height:36px;display:flex;align-items:center", text: "Change start time" }),
+      el("p", { class: "small muted", text: "Pick the time of the first dose on this schedule. Every dose after it follows from this one. Doses already marked given for this medicine will be cleared." }),
+      inp,
+      el("button", { class: "btn ghost", type: "button", style: "margin-top:8px;min-height:44px", text: "Save start time", onclick: function () {
+        var v = inp.value, d = new Date(v); if (!v || isNaN(d.getTime())) return;
+        var pre = m.id + "-", marked = Object.keys(S.given).concat(Object.keys(S.skipped)).filter(function (k) { return k.indexOf(pre) === 0; });
+        if (marked.length && !window.confirm("This clears the doses already marked for " + m.name + " and rebuilds its schedule. Continue?")) return;
+        marked.forEach(function (k) { if (S.given[k]) { delete S.given[k]; op({ t: "given", id: k, ts: null }); } if (S.skipped[k]) { delete S.skipped[k]; op({ t: "skip", id: k, ts: null }); } });
+        m.first = v; m.dueNext = ""; S.day = null; save(); syncPlan(); render();
+      } })]);
+  }
   function toggle(id) { if (S.given[id]) delete S.given[id]; else S.given[id] = Date.now(); save(); op({ t: "given", id: id, ts: S.given[id] || null }); render(); }
 
   function vPlan() {
@@ -601,7 +621,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     var fixed = S.meds.filter(function (m) { return !m.asNeeded && m.every > 0 && m.first; });
     if (fixed.length) wrap.appendChild(el("section", { class: "card" }, [el("h2", { text: "How the times were set" }), el("dl", { class: "every" }, fixed.reduce(function (acc, m) {
       var st = new Date(m.first), n = Math.floor(medDays(m) * 24 / m.every), last = new Date(st.getTime() + (n - 1) * m.every * 3600000);
-      acc.push(el("dt", { text: m.name })); acc.push(el("dd", { text: (m.purpose ? m.purpose + ". " : "") + "Every " + m.every + " hours, starting " + fmtTime(st) + (m.days > 0 ? ". Runs " + m.days + " days: " + n + " doses. Last dose " + fmtDay(last) + " at " + fmtTime(last) + "." : ". Your paper gives no end date, so Pawsie shows " + medDays(m) + " days. Keep going until your vet says stop.") })); return acc;
+      acc.push(el("dt", { text: m.name })); acc.push(el("dd", {}, [el("div", { text: (m.purpose ? m.purpose + ". " : "") + "Every " + m.every + " hours, starting " + fmtDay(st) + " at " + fmtTime(st) + (m.days > 0 ? ". Runs " + m.days + " days: " + n + " doses. Last dose " + fmtDay(last) + " at " + fmtTime(last) + "." : ". Your paper gives no end date, so Pawsie shows " + medDays(m) + " days. Keep going until your vet says stop.") }), startEditor(m)])); return acc;
     }, [])), el("p", { class: "foot", text: "Doses, intervals and lengths come from your discharge sheet and bottle labels. If you still need a medicine when it runs out, call your clinic." })]));
     /* warnings */
     var flagged = S.meds.filter(function (m) { return m.note; });
