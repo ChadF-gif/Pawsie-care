@@ -529,7 +529,30 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(function () {});
   fetch("/api/config").then(function (r) { return r.json(); }).then(function (j) { cfg = j; }, function () {});
   var qT = null;
+  function prnParse(id) { var a = String(id).split("|"); return a[0] === "p" ? { medId: a[1], kind: a[2], v: +a[3] || 0 } : null; }
+  function rolling() {
+    var out = [], nowMs = Date.now();
+    S.meds.forEach(function (m) {
+      if (!m.asNeeded || !(m.every > 0)) return;
+      var log = (S.prn[m.id] || []).slice().sort(function (a, b) { return a - b; }), anchor = 0;
+      log.forEach(function (t) { out.push({ id: "p|" + m.id + "|g|" + t, when: new Date(t), med: m, kind: "prnGiven", t: t }); if (t > anchor) anchor = t; });
+      Object.keys(S.skipped).forEach(function (k) {
+        var q = prnParse(k); if (!q || q.medId !== m.id || q.kind !== "due") return;
+        var at = q.v > 0 ? q.v : S.skipped[k]; out.push({ id: k, when: new Date(at), med: m, kind: "prnSkipped" }); if (at > anchor) anchor = at;
+      });
+      var due = anchor ? anchor + m.every * 3600000 : 0;
+      out.push({ id: "p|" + m.id + "|due|" + due, when: new Date(due && due > nowMs ? due : nowMs), med: m, kind: "prnDue", ready: !due || due <= nowMs });
+    });
+    return out;
+  }
   function giveDose(id) {
+    var q = prnParse(id);
+    if (q) {
+      var log = S.prn[q.medId] = S.prn[q.medId] || [];
+      if (q.kind === "g") { S.prn[q.medId] = log.filter(function (t) { return t !== q.v; }); save(); op({ t: "prn", medId: q.medId, remove: q.v }); }
+      else { if (S.skipped[id]) { delete S.skipped[id]; op({ t: "skip", id: id, ts: null }); } var tn = Date.now(); log.push(tn); save(); op({ t: "prn", medId: q.medId, add: tn }); }
+      render(); return;
+    }
     if (S.given[id]) delete S.given[id];
     else { S.given[id] = Date.now(); if (S.skipped[id]) { delete S.skipped[id]; op({ t: "skip", id: id, ts: null }); } }
     save(); op({ t: "given", id: id, ts: S.given[id] || null }); render();
@@ -540,6 +563,8 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     save(); op({ t: "skip", id: id, ts: S.skipped[id] || null }); render();
   }
   function doseButtons(id) {
+    var q = prnParse(id);
+    if (q && q.kind === "g") return el("div", { class: "pair noprint" }, [el("button", { class: "givebtn yes", type: "button", "aria-pressed": "true", text: "\u2713 Given " + fmtTime(new Date(q.v)) + " \u00b7 Undo", onclick: function () { giveDose(id); } })]);
     var g = S.given[id], n = S.skipped[id];
     return el("div", { class: "pair noprint" }, [
       el("button", { class: "givebtn yes", type: "button", "aria-pressed": g ? "true" : "false", text: g ? "\u2713 Given " + fmtTime(new Date(g)) : "Given", onclick: function () { giveDose(id); } }),
@@ -576,30 +601,30 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       pc.appendChild(el("p", { class: "foot", text: "This explains your vet's notes in simpler words. It doesn't add to them. Ask your clinic if anything is unclear." }));
       wrap.appendChild(pc);
     }
-    var now = new Date(), nxt = null;
-    for (var i = 0; i < all.length; i++) if (!S.given[all[i].id] && !S.skipped[all[i].id] && all[i].when.getTime() >= now.getTime() - 3 * 3600000) { nxt = all[i]; break; }
+    var now = new Date(), nxt = null, view = all.concat(rolling()).sort(function (a, b) { return a.when - b.when; });
+    for (var i = 0; i < view.length; i++) { var vd = view[i]; if (vd.kind === "prnGiven" || vd.kind === "prnSkipped" || S.given[vd.id] || S.skipped[vd.id]) continue; if (vd.when.getTime() >= now.getTime() - 3 * 3600000) { nxt = vd; break; } }
     var box = el("section", { class: "card next", "aria-live": "polite" });
     function paintNext() {
       box.innerHTML = "";
-      if (!nxt) { box.style.removeProperty("--c"); box.appendChild(el("div", { class: "label", text: "Next dose" })); box.appendChild(el("div", { class: "what", text: all.length ? name + " is all caught up." : "No timed doses." })); box.appendChild(el("div", { class: "how", text: "Check the recheck below and call the clinic if the plan changes." })); return; }
-      var diff = nxt.when - new Date(), txt = diff > 0 ? "in " + hrs(diff) : "due now";
+      if (!nxt) { box.style.removeProperty("--c"); box.appendChild(el("div", { class: "label", text: "Next dose" })); box.appendChild(el("div", { class: "what", text: view.length ? name + " is all caught up." : "No doses." })); box.appendChild(el("div", { class: "how", text: "Check the recheck below and call the clinic if the plan changes." })); return; }
+      var diff = nxt.when - new Date(), txt = nxt.kind === "prnDue" && nxt.ready ? "available now" : diff > 0 ? "in " + hrs(diff) : "due now";
       box.style.setProperty("--c", color(nxt.med));
       box.appendChild(el("div", { class: "label", text: "Next dose" }));
       box.appendChild(el("div", { class: "when", text: txt }));
       box.appendChild(el("div", { class: "what" }, [nxt.med.name + " ", nxt.med.purpose ? el("span", { style: "color:var(--c)", text: "(" + nxt.med.purpose.toLowerCase() + ")" }) : null]));
       box.appendChild(el("div", { class: "how", style: "color:var(--ink);font-weight:600", text: nxt.med.dose }));
-      box.appendChild(el("div", { class: "how", text: "Scheduled " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + (nxt.med.food ? ". Give with food." : ".") }));
+      box.appendChild(el("div", { class: "how", text: nxt.kind === "prnDue" ? "As needed. " + (nxt.ready ? "You can give it now" : "Can be given from " + fmtTime(nxt.when)) + ", only if it's needed." + (nxt.med.food ? " Give with food." : "") : "Scheduled " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + (nxt.med.food ? ". Give with food." : ".") }));
       box.appendChild(doseButtons(nxt.id));
     }
     paintNext(); wrap.appendChild(box);
     var lastG = null;
-    all.forEach(function (d) { var t = S.given[d.id]; if (t && (!lastG || t > lastG.t)) lastG = { d: d, t: t }; });
+    view.forEach(function (d) { var t = d.kind === "prnGiven" ? d.t : S.given[d.id]; if (t && (!lastG || t > lastG.t)) lastG = { d: d, t: t }; });
     if (lastG) {
       var lg = el("section", { class: "card", style: "border:2px solid var(--amber)", role: "status" }, [
         el("div", { class: "small muted", text: "Last dose marked as given" }),
         el("div", { style: "font-weight:700;font-size:18px", text: lastG.d.med.name + ", " + lastG.d.med.dose }),
         el("div", { class: "small muted", text: "Marked at " + fmtTime(new Date(lastG.t)) + (new Date(lastG.t).toDateString() === now.toDateString() ? " today" : " on " + fmtDay(new Date(lastG.t)))  + ". Tapped it by mistake?" }),
-        el("button", { class: "btn ghost", type: "button", style: "min-height:48px;align-self:flex-start", text: "Undo. I didn't give it", onclick: function () { toggle(lastG.d.id); } })
+        el("button", { class: "btn ghost", type: "button", style: "min-height:48px;align-self:flex-start", text: "Undo. I didn't give it", onclick: function () { giveDose(lastG.d.id); } })
       ]);
       wrap.appendChild(lg);
     }
@@ -610,22 +635,23 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     }
     wrap.appendChild(checkinCard());
     /* day view */
-    var keys = []; all.forEach(function (d) { var k = dayKey(d.when); if (keys.indexOf(k) < 0) keys.push(k); });
+    var keys = []; view.forEach(function (d) { var k = dayKey(d.when); if (keys.indexOf(k) < 0) keys.push(k); });
     if (keys.length) {
       if (S.day == null || S.day >= keys.length) { var t = keys.indexOf(dayKey(now)); S.day = t >= 0 ? t : 0; }
-      var cur = keys[S.day], dd = all.filter(function (d) { return dayKey(d.when) === cur; }), dateObj = dd[0].when;
+      var cur = keys[S.day], dd = view.filter(function (d) { return dayKey(d.when) === cur; }), dateObj = dd[0].when;
       var title = el("div", { class: "title" }, [el("h2", { text: fmtDay(dateObj) }), el("span", { text: cur === dayKey(now) ? "Today" : "Day " + (S.day + 1) + " of " + keys.length })]);
       wrap.appendChild(el("section", { "aria-label": "Daily schedule", style: "display:flex;flex-direction:column;gap:12px" }, [
         el("div", { class: "daynav" }, [el("button", { class: "navbtn", type: "button", "aria-label": "Previous day", disabled: S.day === 0 ? true : false, text: "←", onclick: function () { S.day--; render(); } }), title, el("button", { class: "navbtn", type: "button", "aria-label": "Next day", disabled: S.day === keys.length - 1 ? true : false, text: "→", onclick: function () { S.day++; render(); } })]),
         el("ul", { class: "doses" }, dd.map(function (d) {
-          var given = S.given[d.id], h = d.when.getHours(), part = h === 0 ? "MIDNIGHT" : h < 12 ? "MORNING" : h < 18 ? "AFTERNOON" : "EVENING";
+          var given = d.kind === "prnGiven" ? d.t : S.given[d.id], h = d.when.getHours(), part = h === 0 ? "MIDNIGHT" : h < 12 ? "MORNING" : h < 18 ? "AFTERNOON" : "EVENING";
           var li = el("li", { class: "dose" + (given ? " done" : ""), style: "--c:" + color(d.med) });
-          li.appendChild(el("div", { class: "time" }, [fmtTime(d.when), el("small", { text: part })]));
+          li.appendChild(el("div", { class: "time" }, [d.kind === "prnDue" && d.ready ? "Now" : fmtTime(d.when), el("small", { text: part })]));
           li.appendChild(el("div", { class: "body" }, [
             d.med.purpose ? el("div", { class: "kind", text: d.med.purpose }) : null, el("div", { class: "name" }, [el("span", { text: d.med.name })]),
             el("div", { class: "amount", text: d.med.dose }), d.med.food ? el("div", { class: "note", text: "Give with food." }) : null,
             S.skipped[d.id] ? el("div", { class: "note", text: "Skipped." }) : null,
-            !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("div", { class: "missed", text: "This dose may have been missed. Don't double up. Ask your clinic if unsure." }) : null,
+            d.kind === "prnDue" ? el("div", { class: "note", text: "As needed. Give only if it's needed. Tap Given when you give it and the next one moves." }) : null,
+            !d.kind && !given && !S.skipped[d.id] && d.when.getTime() < Date.now() - 3600000 ? el("div", { class: "missed", text: "This dose may have been missed. Don't double up. Ask your clinic if unsure." }) : null,
             doseButtons(d.id),
             null]));
           return li;
@@ -633,7 +659,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       ]));
     }
     /* as needed */
-    S.meds.filter(function (m) { return m.asNeeded; }).forEach(function (m) {
+    S.meds.filter(function (m) { return m.asNeeded && !(m.every > 0); }).forEach(function (m) {
       var log = S.prn[m.id] = S.prn[m.id] || [], last = log.length ? log[log.length - 1] : null, gap = (m.every || 0) * 3600000, wait = last && gap ? last + gap - Date.now() : 0;
       wrap.appendChild(el("section", { class: "card", style: "border-left:6px solid " + color(m) }, [
         el("h2", { text: m.name + (m.purpose ? " (" + m.purpose.toLowerCase() + ")" : "") }),
@@ -651,6 +677,9 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       var st = new Date(m.first), n = Math.floor(medDays(m) * 24 / m.every), last = new Date(st.getTime() + (n - 1) * m.every * 3600000);
       acc.push(el("dt", { text: m.name })); acc.push(el("dd", {}, [el("div", { text: (m.purpose ? m.purpose + ". " : "") + "Every " + m.every + " hours, starting " + fmtDay(st) + " at " + fmtTime(st) + (m.days > 0 ? ". Runs " + m.days + " days: " + n + " doses. Last dose " + fmtDay(last) + " at " + fmtTime(last) + "." : ". Your paper gives no end date, so Pawsie shows " + medDays(m) + " days. Keep going until your vet says stop.") }), startEditor(m)])); return acc;
     }, [])), el("p", { class: "foot", text: "Doses, intervals and lengths come from your discharge sheet and bottle labels. If you still need a medicine when it runs out, call your clinic." })]));
+    var prnMeds = S.meds.filter(function (m) { return m.asNeeded && m.every > 0; });
+    if (prnMeds.length) wrap.appendChild(el("section", { class: "card" }, [el("h2", { text: "As-needed medicines" }),
+      el("p", { class: "small muted", text: prnMeds.map(function (m) { return m.name + " (no sooner than every " + m.every + " hours)"; }).join(", ") + ". They stay on the schedule. Tap Given when you actually give one. Pawsie logs the time and moves the next one to that time plus the interval. Tap Not given to skip it. Pawsie doesn't send phone alerts for as-needed medicines." })]));
     /* warnings */
     var flagged = S.meds.filter(function (m) { return m.note; });
     if (S.warnings.length || flagged.length) wrap.appendChild(el("section", { class: "card stop" }, [el("h2", { text: "Call " + (S.clinicName || "your clinic") + " about" }), S.warnings.length ? el("ul", { class: "plain" }, S.warnings.map(function (w) { return el("li", { text: w }); })) : null,
@@ -805,12 +834,10 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
 
   function migratePain() {
     if (!S.planId || !S.meds.length) return;
-    var key = "pawsie-pain-sched-" + S.planId;
-    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, "1"); } catch (e) {}
+    var key = "pawsie-pain-v2-" + S.planId;
+    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, "1"); if (!localStorage.getItem("pawsie-pain-sched-" + S.planId)) return; } catch (e) { return; }
     var changed = false;
-    S.meds.forEach(function (m) {
-      if (m.asNeeded && m.every > 0 && /pain/i.test(m.purpose || "")) { m.asNeeded = false; if (!m.first) m.first = toInput(gridNext(m.every)); changed = true; }
-    });
+    S.meds.forEach(function (m) { if (!m.asNeeded && m.every > 0 && !(m.days > 0) && /pain/i.test(m.purpose || "")) { m.asNeeded = true; changed = true; } });
     if (changed) { save(); syncPlan(); }
   }
   function render() {
