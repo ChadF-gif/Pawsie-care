@@ -423,6 +423,10 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       S.meds = p.meds.map(function (m) { m.confirmed = true; return m; }); S.day = null; S.synced = true;
       if (S.view === "intake" || S.view === "check") S.view = "plan";
     }
+    if (!other && !pending.length && p.meds.length) {
+      var sig = function (ms) { return JSON.stringify(ms.map(function (m) { return [m.id, m.name, m.dose, +m.every || 0, +m.days || 0, !!m.asNeeded, !!m.food, m.first || ""]; })); };
+      if (sig(p.meds) !== sig(S.meds)) { S.meds = p.meds.map(function (m) { var old = S.meds.filter(function (x) { return x.id === m.id; })[0]; if (old && old.src) m.src = old.src; m.confirmed = true; return m; }); S.day = null; try { localStorage.setItem("pawsie-pain-sched-" + S.planId, "1"); } catch (e) {} }
+    }
     var photos = {}; S.checkins.forEach(function (c) { if (c.photo) photos[c.t] = c.photo; });
     S.given = p.given || {}; S.skipped = p.skipped || {}; S.prn = p.prn || {}; S.rulesDone = p.rulesDone || {};
     S.checkins = (p.checkins || []).map(function (c) { if (photos[c.t]) c.photo = photos[c.t]; return c; });
@@ -436,9 +440,9 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     polling = true;
     fetch("/api/plan?h=" + encodeURIComponent(H) + "&rev=" + lastRev, { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       polling = false; if (!j || j.same || !j.plan) return;
-      var before = JSON.stringify([S.given, S.skipped, S.prn, S.rulesDone, S.checkins.length, S.meds.length, S.planId]);
+      var before = JSON.stringify([S.given, S.skipped, S.prn, S.rulesDone, S.checkins.length, S.meds.length, S.planId, S.meds.map(function (m) { return m.id + m.first + m.asNeeded + m.every; }).join()]);
       applyServer(j.plan); pushCount = j.subs || 0;
-      var after = JSON.stringify([S.given, S.skipped, S.prn, S.rulesDone, S.checkins.length, S.meds.length, S.planId]);
+      var after = JSON.stringify([S.given, S.skipped, S.prn, S.rulesDone, S.checkins.length, S.meds.length, S.planId, S.meds.map(function (m) { return m.id + m.first + m.asNeeded + m.every; }).join()]);
       if (before !== after && (S.view === "plan" || S.view === "summary" || S.view === "intake")) render();
     }, function () { polling = false; });
   }
@@ -799,11 +803,22 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
     return w;
   }
 
+  function migratePain() {
+    if (!S.planId || !S.meds.length) return;
+    var key = "pawsie-pain-sched-" + S.planId;
+    try { if (localStorage.getItem(key)) return; localStorage.setItem(key, "1"); } catch (e) {}
+    var changed = false;
+    S.meds.forEach(function (m) {
+      if (m.asNeeded && m.every > 0 && /pain/i.test(m.purpose || "")) { m.asNeeded = false; if (!m.first) m.first = toInput(gridNext(m.every)); changed = true; }
+    });
+    if (changed) { save(); syncPlan(); }
+  }
   function render() {
     if (S.view === "plan" && S.meds.length && !S.synced) syncPlan();
     var v = document.getElementById("view"); v.innerHTML = "";
     v.appendChild(S.view === "plan" && S.meds.length ? vPlan() : S.view === "check" ? vCheck() : S.view === "checkin" ? vCheckin() : S.view === "result" ? vResult() : S.view === "summary" ? vSummary() : vIntake());
   }
+  migratePain();
   render();
   checkPush();
   if (H) { poll(); } else ensureHousehold();
