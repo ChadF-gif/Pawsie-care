@@ -540,8 +540,11 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
         var q = prnParse(k); if (!q || q.medId !== m.id || q.kind !== "due") return;
         var at = q.v > 0 ? q.v : S.skipped[k]; out.push({ id: k, when: new Date(at), med: m, kind: "prnSkipped" }); if (at > anchor) anchor = at;
       });
-      var due = anchor ? anchor + m.every * 3600000 : 0;
-      out.push({ id: "p|" + m.id + "|due|" + due, when: new Date(due && due > nowMs ? due : nowMs), med: m, kind: "prnDue", ready: !due || due <= nowMs });
+      var ev = m.every * 3600000, f = m.first ? new Date(m.first).getTime() : NaN, due;
+      if (anchor) due = anchor + ev;
+      else if (isNaN(f)) due = nowMs;
+      else { var base = nowMs - 3600000; due = f >= base ? f : f + Math.ceil((base - f) / ev) * ev; }
+      out.push({ id: "p|" + m.id + "|due|" + (!anchor && isNaN(f) ? 0 : due), when: new Date(due), med: m, kind: "prnDue", ready: due <= nowMs });
     });
     return out;
   }
@@ -602,18 +605,18 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
       wrap.appendChild(pc);
     }
     var now = new Date(), nxt = null, view = all.concat(rolling()).sort(function (a, b) { return a.when - b.when; });
-    for (var i = 0; i < view.length; i++) { var vd = view[i]; if (vd.kind === "prnGiven" || vd.kind === "prnSkipped" || S.given[vd.id] || S.skipped[vd.id]) continue; if (vd.when.getTime() >= now.getTime() - 3 * 3600000) { nxt = vd; break; } }
+    for (var i = 0; i < view.length; i++) { var vd = view[i]; if (vd.kind === "prnGiven" || vd.kind === "prnSkipped" || S.given[vd.id] || S.skipped[vd.id]) continue; if (vd.kind === "prnDue" || vd.when.getTime() >= now.getTime() - 3 * 3600000) { nxt = vd; break; } }
     var box = el("section", { class: "card next", "aria-live": "polite" });
     function paintNext() {
       box.innerHTML = "";
       if (!nxt) { box.style.removeProperty("--c"); box.appendChild(el("div", { class: "label", text: "Next dose" })); box.appendChild(el("div", { class: "what", text: view.length ? name + " is all caught up." : "No doses." })); box.appendChild(el("div", { class: "how", text: "Check the recheck below and call the clinic if the plan changes." })); return; }
-      var diff = nxt.when - new Date(), txt = nxt.kind === "prnDue" && nxt.ready ? "available now" : diff > 0 ? "in " + hrs(diff) : "due now";
+      var diff = nxt.when - new Date(), txt = diff > 0 ? "in " + hrs(diff) : "due now";
       box.style.setProperty("--c", color(nxt.med));
       box.appendChild(el("div", { class: "label", text: "Next dose" }));
       box.appendChild(el("div", { class: "when", text: txt }));
       box.appendChild(el("div", { class: "what" }, [nxt.med.name + " ", nxt.med.purpose ? el("span", { style: "color:var(--c)", text: "(" + nxt.med.purpose.toLowerCase() + ")" }) : null]));
       box.appendChild(el("div", { class: "how", style: "color:var(--ink);font-weight:600", text: nxt.med.dose }));
-      box.appendChild(el("div", { class: "how", text: nxt.kind === "prnDue" ? "As needed. " + (nxt.ready ? "You can give it now" : "Can be given from " + fmtTime(nxt.when)) + ", only if it's needed." + (nxt.med.food ? " Give with food." : "") : "Scheduled " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + (nxt.med.food ? ". Give with food." : ".") }));
+      box.appendChild(el("div", { class: "how", text: nxt.kind === "prnDue" ? "Due " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + ". As needed, so give it only if it's needed." + (nxt.med.food ? " Give with food." : "") : "Scheduled " + fmtTime(nxt.when) + (nxt.when.toDateString() === now.toDateString() ? " today" : "") + (nxt.med.food ? ". Give with food." : ".") }));
       box.appendChild(doseButtons(nxt.id));
     }
     paintNext(); wrap.appendChild(box);
@@ -645,7 +648,7 @@ textarea { width: 100%; border: 1px solid var(--line); border-radius: 10px; padd
         el("ul", { class: "doses" }, dd.map(function (d) {
           var given = d.kind === "prnGiven" ? d.t : S.given[d.id], h = d.when.getHours(), part = h === 0 ? "MIDNIGHT" : h < 12 ? "MORNING" : h < 18 ? "AFTERNOON" : "EVENING";
           var li = el("li", { class: "dose" + (given ? " done" : ""), style: "--c:" + color(d.med) });
-          li.appendChild(el("div", { class: "time" }, [d.kind === "prnDue" && d.ready ? "Now" : fmtTime(d.when), el("small", { text: part })]));
+          li.appendChild(el("div", { class: "time" }, [fmtTime(d.when), el("small", { text: part })]));
           li.appendChild(el("div", { class: "body" }, [
             d.med.purpose ? el("div", { class: "kind", text: d.med.purpose }) : null, el("div", { class: "name" }, [el("span", { text: d.med.name })]),
             el("div", { class: "amount", text: d.med.dose }), d.med.food ? el("div", { class: "note", text: "Give with food." }) : null,
