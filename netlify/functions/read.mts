@@ -12,7 +12,7 @@ const PROMPT =
   "summary: one short line on what the visit or procedure was, as printed. every_hours: if a range such as 8-12 hours is given, use the smaller number. days: the stated length, or null. " +
   "sheet: what the discharge sheet says for this medication, or null if it is not on the sheet. bottle: what its bottle label says, or null if no bottle photo. Do not compare or merge them; copy each source separately. " +
   "due_next: if a date and time is handwritten or printed next to this medication as when it is due next (for example due next 11/17 @ 8pm), give it in 24-hour form; otherwise null. " +
-  "as_needed: true only if the paper says as needed or PRN. If the paper gives no number of days for a medication, days is null. " +
+  "as_needed: if the discharge sheet gives a fixed interval for this medication (for example every 8 hours), as_needed is false, even when the bottle label also says as needed. Otherwise true only if the paper says as needed or PRN with no fixed interval. If the paper gives no number of days for a medication, days is null. " +
   "purpose: plain words such as pain medicine or nausea medicine, only if printed or stated on the sheet. note: only if something is hard to read, else null. " +
   "clinic_phone: the clinic's phone number if printed anywhere (letterhead counts). " +
   "care_rules: each instruction the owner must follow at home (activity, collar, bathing, diet, wound care) as one short sentence, only what is printed. " +
